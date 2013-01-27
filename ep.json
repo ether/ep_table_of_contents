@@ -1,0 +1,17 @@
+{
+  "parts": [
+    {
+      "name": "ep_table_of_contents",
+      "hooks": {
+        "eejsBlock_scripts"          : "ep_table_of_contents/index",
+        "eejsBlock_styles"           : "ep_table_of_contents/index",
+        "eejsBlock_editbarMenuRight" : "ep_table_of_contents/index",
+        "eejsBlock_body"             : "ep_table_of_contents/index"
+
+      },
+      "client_hooks":{
+        "aceEditEvent"           : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent"
+      }
+    }
+  ]
+}
