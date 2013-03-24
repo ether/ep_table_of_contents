@@ -6,10 +6,14 @@ var tableOfContents = {
 
   enable: function(){
     $('#toc').show();
+    $('#editorcontainer').css("right", "200px");
+    $('#editorcontainer').css("width", "auto");
   },
 
   disable: function(){
     $('#toc').hide();
+    $('#editorcontainer').css("width", "100%");
+
   },
 
   // Find Tags
