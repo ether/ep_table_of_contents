@@ -1,8 +1,5 @@
-# Builds a table of contents
+# Builds a table of contents into the Etherpad interface
 
-Not working fully yet
-
-Install via the /admin/plugins UI in Etherpad Lite.
-
-# TODO
+Enable under settings
+Create headings, watch the TOC populate in real time.
 
