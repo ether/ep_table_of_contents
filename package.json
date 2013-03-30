@@ -1,6 +1,6 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
@@ -10,7 +10,7 @@
   "engines": {
     "node": ">= 0.6.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "ep_headings": "*"
   },
   "readmeFilename": "README.md"

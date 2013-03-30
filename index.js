@@ -1,8 +1,6 @@
 var eejs = require('ep_etherpad-lite/node/eejs'),
- express = require('ep_etherpad-lite/node_modules/express'),
- settings = require('ep_etherpad-lite/node/utils/Settings');
- 
-
+express = require('ep_etherpad-lite/node_modules/express'),
+settings = require('ep_etherpad-lite/node/utils/Settings');
 
 exports.eejsBlock_styles = function (hook_name, args, cb) {
   args.content = args.content + "<link href='/static/plugins/ep_table_of_contents/static/css/toc.css' rel='stylesheet'>";
