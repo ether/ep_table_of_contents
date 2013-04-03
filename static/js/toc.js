@@ -5,7 +5,7 @@ $('#tocButton').click(function(){
 var tableOfContents = {
 
   enable: function(){
-    $('#toc').show();
+    $('#toc').show().css("width", "180px");
     $('#editorcontainer').css("right", "200px");
     $('#editorcontainer').css("width", "auto");
   },
