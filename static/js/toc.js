@@ -53,8 +53,7 @@ var tableOfContents = {
 
   scroll: function(newY){
     var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
-    var $outerdocHTML = $('iframe[name="ace_outer"]').contents().find("#outerdocbody").parent();
-    $outerdoc.scrollTop(newY); // works in Chrome not FF
+    var $outerdocHTML = $outerdoc.parent();
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
   },
