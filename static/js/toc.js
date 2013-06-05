@@ -24,8 +24,8 @@ var tableOfContents = {
     // below is VERY slow
     var divs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div");
     $(divs).each(function(){
-      var tag = "" || $(this).context.firstChild.nodeName; 
-      tag = tag.toLowerCase();
+      if (!this.firstChild) return
+      var tag = this.firstChild.nodeName.toLowerCase();
       if(tag == "h1" || tag == "h2" || tag == "h3"){
         var newY = $(this).context.offsetTop + "px";
         var linkText = $(this).text(); // get the text for the link
