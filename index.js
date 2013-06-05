@@ -3,7 +3,7 @@ express = require('ep_etherpad-lite/node_modules/express'),
 settings = require('ep_etherpad-lite/node/utils/Settings');
 
 exports.eejsBlock_styles = function (hook_name, args, cb) {
-  args.content = args.content + "<link href='/static/plugins/ep_table_of_contents/static/css/toc.css' rel='stylesheet'>";
+  args.content = args.content + "<link href='../static/plugins/ep_table_of_contents/static/css/toc.css' rel='stylesheet'>";
   return cb();
 }
 
@@ -13,7 +13,7 @@ exports.eejsBlock_body = function (hook_name, args, cb) {
 }
 
 exports.eejsBlock_scripts = function (hook_name, args, cb) {
-  args.content += "<script src='/static/plugins/ep_table_of_contents/static/js/toc.js'></script>";
+  args.content += "<script src='../static/plugins/ep_table_of_contents/static/js/toc.js'></script>";
   return cb();
 }
 
