@@ -8,6 +8,7 @@ var tableOfContents = {
     $('#toc').show().css("width", "180px");
     $('#editorcontainer').css("right", "200px");
     $('#editorcontainer').css("width", "auto");
+    this.update()
   },
 
   disable: function(){
