@@ -59,11 +59,11 @@
 /* Add styling to the first item in a list */
 
 #tocItems{counter-reset: first}
-.toch1 { counter-reset: second; }
-.toch2 { counter-reset: third; }
-.toch3 { counter-reset: fourth; }
-.toch4 { counter-reset: fifth; }
-.toch5 { counter-reset: sixth; }
+.toch1 { counter-reset: second third fourth fifth sixth seventh;}
+.toch2 { counter-reset: third fourth fifth sixth seventh; }
+.toch3 { counter-reset: fourth fifth sixth seventh; }
+.toch4 { counter-reset: fifth sixth seventh; }
+.toch5 { counter-reset: sixth seventh; }
 .toch6 { counter-reset: seventh; }
 
 
