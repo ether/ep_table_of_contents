@@ -11,6 +11,7 @@
   background: -o-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: -ms-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: linear-gradient(#F7F7F7, #F1F1F1 80%);
+  overflow-y:scroll;
 }
 #tocItems{
   line-height:20px;
@@ -26,12 +27,74 @@
 
 .toch1{
   margin-left:0px;
+  font-size:20px;
 }
 .toch2{
   margin-left:10px;
-  width:130px;
+  width:150px;
+  font-size:16px;
 }
 .toch3{
   margin-left:20px;
-  width:120px;
+  width:150px;
+  font-size:14px;
 }
+.toch4{
+  margin-left:30px;
+  width:110px;
+  font-size:14px;
+}
+.toch5{
+  margin-left:30px;
+  width:110px;
+  font-size:14px;
+}
+.toch6{
+  margin-left:30px;
+  width:110px;
+  font-size:14px;
+}
+
+
+/* Add styling to the first item in a list */
+
+#tocItems{counter-reset: first}
+.toch1 { counter-reset: second; }
+.toch2 { counter-reset: third; }
+.toch3 { counter-reset: fourth; }
+.toch4 { counter-reset: fifth; }
+.toch5 { counter-reset: sixth; }
+.toch6 { counter-reset: seventh; }
+
+
+/* The behavior for incrementing and the prefix */
+.toch1:before {
+  content: counter(first) ". " ;
+  counter-increment: first;
+}
+
+.toch2:before {
+  content: counter(first) "." counter(second) ". ";
+  counter-increment: second;
+}
+
+.toch3:before {
+  content: counter(first) "." counter(second) "." counter(third) ". ";
+  counter-increment: third 1;
+}
+
+.toch4:before {
+  content: counter(first) "." counter(second) "." counter(third) "." counter(fourth) ". ";
+  counter-increment: fourth 1;
+}
+
+.toch5:before {
+  content: counter(first) "." counter(second) "." counter(third) "." counter(fourth) "." counter(fifth) ". ";
+  counter-increment: fifth 1;
+}
+
+.toch6:before {
+  content: counter(first) "." counter(second) "." counter(third) "." counter(fourth) "." counter(fifth) "." counter(sixth) ". ";
+  counter-increment: sixth 1;
+}
+
