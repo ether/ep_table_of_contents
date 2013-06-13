@@ -23,18 +23,20 @@ var tableOfContents = {
     var toc = {};
     // below is VERY slow
     var divs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div");
-    $(divs).each(function(){
-      if (!this.firstChild) return
-      var tag = this.firstChild.nodeName.toLowerCase();
-      if(tag == "h1" || tag == "h2" || tag == "h3"){
-        var newY = $(this).context.offsetTop + "px";
-        var linkText = $(this).text(); // get the text for the link
-        var focusId = $(this).parent()[0].id; // get the id of the link
-        var tagType = tag;
-        // lazy programmer is lazy
-        var TOCString = "<a class='tocItem toc"+tagType+"' data-class='toc"+tagType+"' onClick=\"tableOfContents.scroll('"+newY+"');\" data-offset='"+newY+"'>"+linkText+"</a>";
-        $('#tocItems').append(TOCString);
-      }
+    $(divs).each(function(){ // each line
+      $(this).children().each(function(){ // each element, stops stuff like ep_tasklist breaking TOC functionality..
+        if (!this.firstChild) return
+        var tag = this.nodeName.toLowerCase();
+        if(tag == "h1" || tag == "h2" || tag == "h3"){
+          var newY = $(this).context.offsetTop + "px";
+          var linkText = $(this).text(); // get the text for the link
+          var focusId = $(this).parent()[0].id; // get the id of the link
+          var tagType = tag;
+          // lazy programmer is lazy
+          var TOCString = "<a class='tocItem toc"+tagType+"' data-class='toc"+tagType+"' onClick=\"tableOfContents.scroll('"+newY+"');\" data-offset='"+newY+"'>"+linkText+"</a>";
+          $('#tocItems').append(TOCString);
+        }
+      });
     });
   },
   
