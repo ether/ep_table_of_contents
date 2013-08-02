@@ -13,5 +13,9 @@
   "peerDependencies": {
     "ep_headings": "*"
   },
+  "repository" : {
+                       "type" : "git",
+                       "url"  : "https://github.com/JohnMcLear/ep_table_of_contents.git"
+                 },
   "readmeFilename": "README.md"
 }
