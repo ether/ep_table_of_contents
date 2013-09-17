@@ -37,7 +37,7 @@ var tableOfContents = {
     });
 
     $.each(toc, function(h, v){ // for each item we should display
-      var TOCString = "<a class='tocItem toc"+v.tag+"' data-class='toc"+v.tag+"' onClick=\"tableOfContents.scroll('"+v.y+"');\" data-offset='"+v.y+"'>"+v.text+"</a>";
+      var TOCString = "<a title='"+v.text+"' class='tocItem toc"+v.tag+"' data-class='toc"+v.tag+"' onClick=\"tableOfContents.scroll('"+v.y+"');\" data-offset='"+v.y+"'>"+v.text+"</a>";
       $('#tocItems').append(TOCString);
     });
 
