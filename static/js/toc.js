@@ -14,7 +14,6 @@ var tableOfContents = {
   disable: function(){
     $('#toc').hide();
     $('#editorcontainer').css("left", "0");
-    $('#editorcontainer').css("width", "100%");
   },
 
   // Find Tags
