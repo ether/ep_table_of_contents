@@ -1,6 +1,6 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
@@ -13,9 +13,19 @@
   "peerDependencies": {
     "ep_headings": "*"
   },
-  "repository" : {
-                       "type" : "git",
-                       "url"  : "https://github.com/JohnMcLear/ep_table_of_contents.git"
-                 },
-  "readmeFilename": "README.md"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnMcLear/ep_table_of_contents.git"
+  },
+  "readmeFilename": "README.md",
+  "readme": "# Builds a table of contents into the Etherpad interface\n\nEnable under settings\nCreate headings, watch the TOC populate in real time.\n\n",
+  "bugs": {
+    "url": "https://github.com/JohnMcLear/ep_table_of_contents/issues"
+  },
+  "_id": "ep_table_of_contents@0.1.1",
+  "dist": {
+    "shasum": "6d55c2e632bfb0e7bc7f102c56a29e27d0dc99aa"
+  },
+  "_from": "ep_table_of_contents@",
+  "_resolved": "https://registry.npmjs.org/ep_table_of_contents/-/ep_table_of_contents-0.1.1.tgz"
 }

@@ -7,6 +7,11 @@ exports.eejsBlock_styles = function (hook_name, args, cb) {
   return cb();
 }
 
+exports.eejsBlock_dd_view = function (hook_name, args, cb) {
+  args.content = args.content + "<li><a href='#' onClick='$(\"#options-toc\").click();'>Table Of Contents</a></li>";
+  return cb();
+}
+
 exports.eejsBlock_body = function (hook_name, args, cb) {
   args.content = args.content + eejs.require("ep_table_of_contents/templates/toc.ejs", {}, module);
   return cb();
