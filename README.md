@@ -1,9 +1,9 @@
 # Builds a table of contents into the Etherpad interface
 
-Enable under settings
+Enable under settings.
 Create headings, watch the TOC populate in real time.
 
-#License
+##License
 Copyright 2014, John McLear
 
 Licensed under the Apache License, Version 2.0 (the "License");
