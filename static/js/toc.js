@@ -27,6 +27,12 @@ var tableOfContents = {
       var newY = $(this).context.offsetTop + "px";
       var linkText = $(this).text(); // get the text for the link
       var focusId = $(this).parent()[0].id; // get the id of the link
+
+      if(tag == "span"){
+        tag = $(this).attr("class").replace(/.*(h[1-6]).*/, "$1");
+        linkText = linkText.replace(/\s*#*/, '');
+      }
+
       toc[count] = {
         tag : tag,
         y : newY,
