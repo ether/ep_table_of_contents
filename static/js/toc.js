@@ -21,12 +21,18 @@ var tableOfContents = {
   findTags: function(){
     var toc = {};
     var count = 0;
-    var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children("h1, h2, h3, h4, h5, h6");;
+    var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children("h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6");;
     $(hs).each(function(){
       var tag = this.nodeName.toLowerCase();
       var newY = $(this).context.offsetTop + "px";
       var linkText = $(this).text(); // get the text for the link
       var focusId = $(this).parent()[0].id; // get the id of the link
+
+      if(tag == "span"){
+        tag = $(this).attr("class").replace(/.*(h[1-6]).*/, "$1");
+        linkText = linkText.replace(/\s*#*/, '');
+      }
+
       toc[count] = {
         tag : tag,
         y : newY,
