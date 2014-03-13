@@ -21,7 +21,7 @@ var tableOfContents = {
   findTags: function(){
     var toc = {};
     var count = 0;
-    var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children("h1, h2, h3, h4, h5, h6");;
+    var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children("h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6");;
     $(hs).each(function(){
       var tag = this.nodeName.toLowerCase();
       var newY = $(this).context.offsetTop + "px";
