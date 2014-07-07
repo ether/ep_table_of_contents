@@ -1,11 +1,10 @@
 #toc{
   position: fixed;
-  right: 0px;
+  left: 0px;
   z-index: 1;
   font-size: 10px;
   height:100%;
-  padding-left:20px;
-  padding-top:20px;
+  padding:10px;
   background: -webkit-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: -moz-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: -o-linear-gradient(#F7F7F7, #F1F1F1 80%);
