@@ -98,3 +98,6 @@
   counter-increment: sixth 1;
 }
 
+.activeTOC{
+  font-weight: 800;
+}

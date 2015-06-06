@@ -66,6 +66,8 @@ var tableOfContents = {
       count++;
     });
 
+    clientVars.plugins.plugins.ep_table_of_context = toc;
+
     $.each(toc, function(h, v){ // for each item we should display
       var TOCString = "<a title='"+v.text+"' class='tocItem toc"+v.tag+"' data-class='toc"+v.tag+"' onClick=\"tableOfContents.scroll('"+v.y+"');\" data-offset='"+v.y+"'>"+v.text+"</a>";
       $('#tocItems').append(TOCString);
@@ -73,17 +75,43 @@ var tableOfContents = {
 
   },
   
-
   // get HTML
-  getPadHTML: function(){
+  getPadHTML: function(rep){
     if($('#options-toc').is(':checked')) {
       $('#tocItems').html("");
       tableOfContents.findTags();
     }
   },
 
-  update: function(){
-    tableOfContents.getPadHTML();
+  // show the current position
+  showPosition: function(rep){
+    // We need to know current line # -- see rep
+    // And we need to know what section is before this line number
+    var toc = clientVars.plugins.plugins.ep_table_of_context;
+    if(!toc) return false;
+    var repLineNumber = rep.selEnd[0]; // line Number
+
+    // So given a line number of 10 and a toc of [4,8,12] we want to find 8..
+    $.each(toc, function(k, line){
+      if(repLineNumber >= line.lineNumber){
+        // we might be showing this..
+        var nextLine = toc[k];
+        if(nextLine.lineNumber <= repLineNumber){
+          var activeToc = parseInt(k)+1;
+
+          // Seems expensive, we go through each item and remove class
+          $('.tocItem').each(function(){
+            $(this).removeClass("activeTOC");
+          });
+
+          $('.toch'+activeToc).addClass("activeTOC");
+        }
+      }
+    });
+  },
+
+  update: function(rep){
+    tableOfContents.getPadHTML(rep);
   },
 
   scroll: function(newY){
@@ -92,6 +120,7 @@ var tableOfContents = {
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
   },
+
   getParam: function(sname)
   {
     var params = location.search.substr(location.search.indexOf("?")+1);
