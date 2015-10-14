@@ -31,7 +31,6 @@ var tableOfContents = {
           delims.push(contextStyle);
         });
       }
-      console.warn(delims);
     }
     delims = delims.join(",");
     var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children(delims);
