@@ -45,7 +45,13 @@ var tableOfContents = {
 
       if(tag == "span"){
         tag = $(this).attr("class").replace(/.*(h[1-6]).*/, "$1");
+
         linkText = linkText.replace(/\s*#*/, '');
+      }
+
+      // HACK - I can't figure out how to do a selction based on jquery psuedo before contents
+      if( tag.indexOf("whereas") !== -1 ){
+        linkText = "Whereas " + linkText;
       }
 
       // Create an object of lineNumbers that include the tag
