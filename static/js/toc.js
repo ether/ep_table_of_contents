@@ -22,7 +22,7 @@ var tableOfContents = {
     var toc = {}; // The main object we will use
     var tocL = {}; // A per line record of each TOC item
     var count = 0;
-    var delims = ["h1","h2","h3","h4","h5","h6",".h1",".h2",".h3",".h4",".h5",".h6"];
+    var delims = ["h1","h2","h3","h4","h5","h6",".h1",".h2",".h3",".h4",".h5",".h6", ".context"];
     if(clientVars.plugins.plugins.ep_context){
       if(clientVars.plugins.plugins.ep_context.styles){
         var styles = clientVars.plugins.plugins.ep_context.styles;
@@ -31,6 +31,7 @@ var tableOfContents = {
           delims.push(contextStyle);
         });
       }
+      console.warn(delims);
     }
     delims = delims.join(",");
     var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children(delims);
@@ -52,9 +53,9 @@ var tableOfContents = {
 
       // Does the previous line already have this delim?
       // If so do nothing..
-      if(tocL[lineNumber-1]){
-        if(tocL[lineNumber-1] === tag) return;
-      }
+      // if(tocL[lineNumber-1]){
+      //  if(tocL[lineNumber-1] === tag) return;
+      // }
 
       toc[count] = {
         tag : tag,
