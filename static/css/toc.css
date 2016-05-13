@@ -11,7 +11,7 @@
   background: -o-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: -ms-linear-gradient(#F7F7F7, #F1F1F1 80%);
   background: linear-gradient(#F7F7F7, #F1F1F1 80%);
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 #tocItems{
   line-height:20px;
