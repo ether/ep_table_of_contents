@@ -1,20 +1,42 @@
 $('#tocButton').click(function(){
   $('#toc').toggle();
 });
+$('#options-stickychat, #options-chatandusers').change(function(){
+  tableOfContents.resize();
+});
+$('#titlesticky, #titlecross').click(function(){
+  tableOfContents.resize();
+});
 
 var tableOfContents = {
 
   enable: function(){
-    $('#toc').show().css("width", "180px");
-    $('#editorcontainer').css("right", "200px");
-    $('#editorcontainer').css("width", "auto");
+    var width = 180,
+        right = 180;
+    if ($('#options-stickychat').prop('checked')) {
+      width = 372;
+      right = 300;
+    }
+    $('#toc').show().css("width", width+"px");
+    $('#editorcontainer').css("right", right+"px");
     this.update()
   },
 
   disable: function(){
-    $('#toc').hide();
-    $('#editorcontainer').css("width", "100%");
+    if ($('#toc:visible').length > 0) {
+      $('#toc').hide();
+      var right = 0;
+      if ($('#options-stickychat').prop('checked')) {
+        right = 192;
+      }
+      $('#editorcontainer').css("right", right+"px");
+    }
+  },
 
+  resize: function(){
+    if ($('#toc:visible').length > 0) {
+      this.enable();
+    }
   },
 
   // Find Tags
@@ -137,4 +159,8 @@ var tableOfContents = {
 
 };
 
-
+exports.update = function(payload) {
+  if ($('#toc:visible').length > 0) {
+    tableOfContents.update();
+  }
+};
