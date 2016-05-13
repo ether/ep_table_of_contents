@@ -1,0 +1,51 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'version',
+1 verbose cli   'patch',
+1 verbose cli   '--no-git' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.4
+4 info git [ 'status', '--porcelain' ]
+5 info preversion ep_table_of_contents@0.1.12
+6 verbose version.write data { name: 'ep_table_of_contents',
+6 verbose version.write   version: '0.1.12',
+6 verbose version.write   description: 'View a table of contents for your pad',
+6 verbose version.write   author:
+6 verbose version.write    { name: 'John McLear',
+6 verbose version.write      email: 'john@mclear.co.uk',
+6 verbose version.write      url: 'http://mclear.co.uk' },
+6 verbose version.write   engines: { node: '>= 0.6.0' },
+6 verbose version.write   peerDependencies: { ep_headings2: '*' },
+6 verbose version.write   repository:
+6 verbose version.write    { type: 'git',
+6 verbose version.write      url: 'https://github.com/JohnMcLear/ep_table_of_contents.git' },
+6 verbose version.write   readmeFilename: 'README.md',
+6 verbose version.write   readme: '# Builds a table of contents into the Etherpad interface\n\nEnable under settings\nCreate headings, watch the TOC populate in real time.\n\n',
+6 verbose version.write   bugs: { url: 'https://github.com/JohnMcLear/ep_table_of_contents/issues' },
+6 verbose version.write   _id: 'ep_table_of_contents@0.1.1',
+6 verbose version.write   dist: { shasum: '6d55c2e632bfb0e7bc7f102c56a29e27d0dc99aa' },
+6 verbose version.write   _from: 'ep_table_of_contents@',
+6 verbose version.write   _resolved: 'https://registry.npmjs.org/ep_table_of_contents/-/ep_table_of_contents-0.1.1.tgz' } to package.json
+7 info version ep_table_of_contents@0.1.12
+8 info git [ 'add', '/home/jose/ep_table_of_contents/package.json' ]
+9 verbose stack Error: Command failed: false add /home/jose/ep_table_of_contents/package.json
+9 verbose stack
+9 verbose stack     at ChildProcess.exithandler (child_process.js:213:12)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:827:16)
+9 verbose stack     at Socket.<anonymous> (internal/child_process.js:319:11)
+9 verbose stack     at emitOne (events.js:77:13)
+9 verbose stack     at Socket.emit (events.js:169:7)
+9 verbose stack     at Pipe._onclose (net.js:477:12)
+10 verbose cwd /home/jose/ep_table_of_contents
+11 error Linux 4.2.0-35-generic
+12 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "version" "patch" "--no-git"
+13 error node v4.4.4
+14 error npm  v2.15.1
+15 error code 1
+16 error Command failed: false add /home/jose/ep_table_of_contents/package.json
+17 error If you need help, you may report this error at:
+17 error     <https://github.com/npm/npm/issues>
+18 verbose exit [ 1, true ]
