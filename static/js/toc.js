@@ -158,9 +158,3 @@ var tableOfContents = {
   }
 
 };
-
-exports.update = function(payload) {
-  if ($('#toc:visible').length > 0) {
-    tableOfContents.update();
-  }
-};

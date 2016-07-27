@@ -1,14 +1,11 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
     "email": "john@mclear.co.uk",
     "url": "http://mclear.co.uk"
-  },
-  "engines": {
-    "node": ">= 0.6.0"
   },
   "peerDependencies": {
     "ep_headings2": "*"
