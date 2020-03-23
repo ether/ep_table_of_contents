@@ -1,25 +1,17 @@
 #toc{
-  position: fixed;
-  right: 0px;
-  z-index: 1;
-  font-size: 10px;
-  height:100%;
-  padding-left:10px;
-  padding-top:20px;
-  background: -webkit-linear-gradient(#F7F7F7, #F1F1F1 80%);
-  background: -moz-linear-gradient(#F7F7F7, #F1F1F1 80%);
-  background: -o-linear-gradient(#F7F7F7, #F1F1F1 80%);
-  background: -ms-linear-gradient(#F7F7F7, #F1F1F1 80%);
-  background: linear-gradient(#F7F7F7, #F1F1F1 80%);
-  overflow-y:auto;
+  display: none;
+  width: 200px;
+  padding: 10px;
+  border-left: 1px solid #ccc;
+  background-color: #f7f7f7;
+  overflow-y: auto;
 }
 #tocItems{
-  line-height:20px;
+  line-height:200%;
 }
 .tocItem{
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 160px;
   display: block;
   overflow: hidden;
   cursor:pointer;
@@ -27,32 +19,27 @@
 
 .toch1{
   margin-left:0px;
-  font-size:20px;
+  font-size: 1.5rem;
 }
 .toch2{
   margin-left:10px;
-  width:150px;
-  font-size:16px;
+  font-size: 1.2rem;
 }
 .toch3{
   margin-left:20px;
-  width:150px;
-  font-size:14px;
+  font-size: 1rem;
 }
 .toch4{
   margin-left:30px;
-  width:110px;
-  font-size:14px;
+  font-size:1rem;
 }
 .toch5{
   margin-left:30px;
-  width:110px;
-  font-size:14px;
+  font-size:1rem;
 }
 .toch6{
   margin-left:30px;
-  width:110px;
-  font-size:14px;
+  font-size:1rem;
 }
 
 
