@@ -12,7 +12,7 @@ exports.eejsBlock_dd_view = function (hook_name, args, cb) {
   return cb();
 }
 
-exports.eejsBlock_body = function (hook_name, args, cb) {
+exports.eejsBlock_editorContainerBox = function (hook_name, args, cb) {
   args.content = args.content + eejs.require("ep_table_of_contents/templates/toc.ejs", {}, module);
   return cb();
 }

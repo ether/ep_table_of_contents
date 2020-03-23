@@ -1,42 +1,16 @@
 $('#tocButton').click(function(){
   $('#toc').toggle();
 });
-$('#options-stickychat, #options-chatandusers').change(function(){
-  tableOfContents.resize();
-});
-$('#titlesticky, #titlecross').click(function(){
-  tableOfContents.resize();
-});
 
 var tableOfContents = {
 
   enable: function(){
-    var width = 180,
-        right = 180;
-    if ($('#options-stickychat').prop('checked')) {
-      width = 372;
-      right = 300;
-    }
-    $('#toc').show().css("width", width+"px");
-    $('#editorcontainer').css("right", right+"px");
+    $('#toc').show();
     this.update()
   },
 
   disable: function(){
-    if ($('#toc:visible').length > 0) {
-      $('#toc').hide();
-      var right = 0;
-      if ($('#options-stickychat').prop('checked')) {
-        right = 192;
-      }
-      $('#editorcontainer').css("right", right+"px");
-    }
-  },
-
-  resize: function(){
-    if ($('#toc:visible').length > 0) {
-      this.enable();
-    }
+    $('#toc').hide();
   },
 
   // Find Tags
@@ -96,7 +70,7 @@ var tableOfContents = {
     });
 
   },
-  
+
   // get HTML
   getPadHTML: function(rep){
     if($('#options-toc').is(':checked')) {

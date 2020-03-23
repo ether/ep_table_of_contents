@@ -3,11 +3,11 @@
     {
       "name": "ep_table_of_contents",
       "hooks": {
-        "eejsBlock_scripts"          : "ep_table_of_contents/index",
-        "eejsBlock_styles"           : "ep_table_of_contents/index",
-        "eejsBlock_mySettings"       : "ep_table_of_contents/index",
-        "eejsBlock_body"             : "ep_table_of_contents/index",
-        "eejsBlock_dd_view"          : "ep_table_of_contents/index"
+        "eejsBlock_scripts"           : "ep_table_of_contents/index",
+        "eejsBlock_styles"            : "ep_table_of_contents/index",
+        "eejsBlock_mySettings"        : "ep_table_of_contents/index",
+        "eejsBlock_editorContainerBox": "ep_table_of_contents/index",
+        "eejsBlock_dd_view"           : "ep_table_of_contents/index"
       },
       "client_hooks":{
         "aceEditEvent"           : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent",
