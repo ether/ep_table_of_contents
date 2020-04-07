@@ -3,7 +3,17 @@
 Enable under settings.
 Create headings, watch the TOC populate in real time.
 
-##License
+## Configuration
+
+If you want to have the TOC shown by default, add following snippet to your `settings.json`:
+
+```json
+"ep_toc": {
+  "disable_by_default": false
+},
+```
+
+## License
 Copyright 2014, John McLear
 
 Licensed under the Apache License, Version 2.0 (the "License");
