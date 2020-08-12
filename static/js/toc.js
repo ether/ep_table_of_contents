@@ -34,7 +34,7 @@ var tableOfContents = {
       // Remember lineNumber is -1 what a user sees
       var lineNumber = $(this).parent().prevAll().length;
       var tag = this.nodeName.toLowerCase();
-      var newY = $(this).context.offsetTop + "px";
+      var newY = this.offsetTop + "px";
       var linkText = $(this).text(); // get the text for the link
       var focusId = $(this).parent()[0].id; // get the id of the link
 
@@ -63,18 +63,17 @@ var tableOfContents = {
     });
 
     clientVars.plugins.plugins.ep_table_of_context = toc;
-
+    var tocContent = "";
     $.each(toc, function(h, v){ // for each item we should display
       var TOCString = "<a title='"+v.text+"' class='tocItem toc"+v.tag+"' data-class='toc"+v.tag+"' onClick=\"tableOfContents.scroll('"+v.y+"');\" data-offset='"+v.y+"'>"+v.text+"</a>";
-      $('#tocItems').append(TOCString);
+      tocContent += TOCString;
     });
-
+    $('#tocItems').html(tocContent);
   },
 
   // get HTML
   getPadHTML: function(rep){
     if($('#options-toc').is(':checked')) {
-      $('#tocItems').html("");
       tableOfContents.findTags();
     }
   },
@@ -107,6 +106,9 @@ var tableOfContents = {
   },
 
   update: function(rep){
+    if(rep){
+      tableOfContents.showPosition(rep);
+    }
     tableOfContents.getPadHTML(rep);
   },
 
@@ -115,7 +117,7 @@ var tableOfContents = {
     var $outerdocHTML = $outerdoc.parent();
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
-  },
+ },
 
   getParam: function(sname)
   {
