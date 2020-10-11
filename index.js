@@ -13,7 +13,7 @@ exports.eejsBlock_dd_view = function (hook_name, args, cb) {
 }
 
 exports.eejsBlock_editorContainerBox = function (hook_name, args, cb) {
-  args.content = args.content + eejs.require("ep_table_of_contents/templates/toc.ejs", {}, module);
+  args.content = args.content + eejs.require('./templates/toc.ejs', {}, module);
   return cb();
 }
 
@@ -31,7 +31,7 @@ exports.eejsBlock_mySettings = function (hook_name, args, cb) {
       checked_state = 'checked';
     }
   }
-  args.content = args.content + eejs.require('ep_table_of_contents/templates/toc_entry.ejs', {checked : checked_state});
+  args.content = args.content +
+      eejs.require('./templates/toc_entry.ejs', {checked: checked_state}, module);
   return cb();
 }
-
