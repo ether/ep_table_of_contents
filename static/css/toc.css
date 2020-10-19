@@ -88,3 +88,9 @@
 .activeTOC{
   font-weight: 800;
 }
+
+@media (min-width: 1350px) {
+  #toc { width: 25% }
+  body.comments-active #toc { width: 20% } // a bit smaller when the comment sidebar is visible
+}
+
