@@ -1,3 +1,6 @@
 {
-  "ep_table_of_contents.toc" : "Toon Inhoudsopgave"
+	"@metadata": {
+		"authors": []
+	},
+	"ep_table_of_contents.toc": "Toon Inhoudsopgave"
 }
