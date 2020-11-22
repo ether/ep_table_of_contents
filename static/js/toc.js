@@ -1,45 +1,45 @@
-$('#tocButton').click(function(){
+$('#tocButton').click(() => {
   $('#toc').toggle();
 });
 
 var tableOfContents = {
 
-  enable: function(){
+  enable() {
     $('#toc').show();
-    this.update()
+    this.update();
   },
 
-  disable: function(){
+  disable() {
     $('#toc').hide();
   },
 
   // Find Tags
-  findTags: function(){
-    var toc = {}; // The main object we will use
-    var tocL = {}; // A per line record of each TOC item
-    var count = 0;
-    var delims = ["h1","h2","h3","h4","h5","h6",".h1",".h2",".h3",".h4",".h5",".h6"];
-    if(clientVars.plugins.plugins.ep_context){
-      if(clientVars.plugins.plugins.ep_context.styles){
-        var styles = clientVars.plugins.plugins.ep_context.styles;
-        $.each(styles, function(k, style){
-          var contextStyle = "context"+style.toLowerCase();
+  findTags() {
+    const toc = {}; // The main object we will use
+    const tocL = {}; // A per line record of each TOC item
+    let count = 0;
+    let delims = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
+    if (clientVars.plugins.plugins.ep_context) {
+      if (clientVars.plugins.plugins.ep_context.styles) {
+        const styles = clientVars.plugins.plugins.ep_context.styles;
+        $.each(styles, (k, style) => {
+          const contextStyle = `context${style.toLowerCase()}`;
           delims.push(contextStyle);
         });
       }
     }
-    delims = delims.join(",");
-    var hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody").children("div").children(delims);
-    $(hs).each(function(){
+    delims = delims.join(',');
+    const hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find('#innerdocbody').children('div').children(delims);
+    $(hs).each(function () {
       // Remember lineNumber is -1 what a user sees
-      var lineNumber = $(this).parent().prevAll().length;
-      var tag = this.nodeName.toLowerCase();
-      var newY = this.offsetTop + "px";
-      var linkText = $(this).text(); // get the text for the link
-      var focusId = $(this).parent()[0].id; // get the id of the link
+      const lineNumber = $(this).parent().prevAll().length;
+      let tag = this.nodeName.toLowerCase();
+      const newY = `${this.offsetTop}px`;
+      let linkText = $(this).text(); // get the text for the link
+      const focusId = $(this).parent()[0].id; // get the id of the link
 
-      if(tag == "span"){
-        tag = $(this).attr("class").replace(/.*(h[1-6]).*/, "$1");
+      if (tag == 'span') {
+        tag = $(this).attr('class').replace(/.*(h[1-6]).*/, '$1');
         linkText = linkText.replace(/\s*#*/, '');
       }
 
@@ -48,89 +48,87 @@ var tableOfContents = {
 
       // Does the previous line already have this delim?
       // If so do nothing..
-      if(tocL[lineNumber-1]){
-        if(tocL[lineNumber-1] === tag) return;
+      if (tocL[lineNumber - 1]) {
+        if (tocL[lineNumber - 1] === tag) return;
       }
 
       toc[count] = {
-        tag : tag,
-        y : newY,
-        text : linkText,
-        focusId : focusId,
-        lineNumber : lineNumber
-      }
+        tag,
+        y: newY,
+        text: linkText,
+        focusId,
+        lineNumber,
+      };
       count++;
     });
 
     clientVars.plugins.plugins.ep_table_of_context = toc;
-    var tocContent = "";
-    $.each(toc, function(h, v){ // for each item we should display
-      var TOCString = "<a title='"+v.text+"' class='tocItem toc"+v.tag+"' data-class='toc"+v.tag+"' onClick=\"tableOfContents.scroll('"+v.y+"');\" data-offset='"+v.y+"'>"+v.text+"</a>";
+    let tocContent = '';
+    $.each(toc, (h, v) => { // for each item we should display
+      const TOCString = `<a title='${v.text}' class='tocItem toc${v.tag}' data-class='toc${v.tag}' onClick="tableOfContents.scroll('${v.y}');" data-offset='${v.y}'>${v.text}</a>`;
       tocContent += TOCString;
     });
     $('#tocItems').html(tocContent);
   },
 
   // get HTML
-  getPadHTML: function(rep){
-    if($('#options-toc').is(':checked')) {
+  getPadHTML(rep) {
+    if ($('#options-toc').is(':checked')) {
       tableOfContents.findTags();
     }
   },
 
   // show the current position
-  showPosition: function(rep){
+  showPosition(rep) {
     // We need to know current line # -- see rep
     // And we need to know what section is before this line number
-    var toc = clientVars.plugins.plugins.ep_table_of_context;
-    if(!toc) return false;
-    var repLineNumber = rep.selEnd[0]; // line Number
+    const toc = clientVars.plugins.plugins.ep_table_of_context;
+    if (!toc) return false;
+    const repLineNumber = rep.selEnd[0]; // line Number
 
     // So given a line number of 10 and a toc of [4,8,12] we want to find 8..
-    $.each(toc, function(k, line){
-      if(repLineNumber >= line.lineNumber){
+    $.each(toc, (k, line) => {
+      if (repLineNumber >= line.lineNumber) {
         // we might be showing this..
-        var nextLine = toc[k];
-        if(nextLine.lineNumber <= repLineNumber){
-          var activeToc = parseInt(k)+1;
+        const nextLine = toc[k];
+        if (nextLine.lineNumber <= repLineNumber) {
+          const activeToc = parseInt(k) + 1;
 
           // Seems expensive, we go through each item and remove class
-          $('.tocItem').each(function(){
-            $(this).removeClass("activeTOC");
+          $('.tocItem').each(function () {
+            $(this).removeClass('activeTOC');
           });
 
-          $('.toch'+activeToc).addClass("activeTOC");
+          $(`.toch${activeToc}`).addClass('activeTOC');
         }
       }
     });
   },
 
-  update: function(rep){
-    if(rep){
+  update(rep) {
+    if (rep) {
       tableOfContents.showPosition(rep);
     }
     tableOfContents.getPadHTML(rep);
   },
 
-  scroll: function(newY){
-    var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
-    var $outerdocHTML = $outerdoc.parent();
+  scroll(newY) {
+    const $outerdoc = $('iframe[name="ace_outer"]').contents().find('#outerdocbody');
+    const $outerdocHTML = $outerdoc.parent();
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
- },
+  },
 
-  getParam: function(sname)
-  {
-    var params = location.search.substr(location.search.indexOf("?")+1);
-    var sval = "";
-    params = params.split("&");
+  getParam(sname) {
+    let params = location.search.substr(location.search.indexOf('?') + 1);
+    let sval = '';
+    params = params.split('&');
     // split param and value into individual pieces
-    for (var i=0; i<params.length; i++)
-    {
-      temp = params[i].split("=");
-      if ( [temp[0]] == sname ) { sval = temp[1]; }
+    for (let i = 0; i < params.length; i++) {
+      temp = params[i].split('=');
+      if ([temp[0]] == sname) { sval = temp[1]; }
     }
     return sval;
-  }
+  },
 
 };
