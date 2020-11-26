@@ -1,8 +1,10 @@
+'use strict';
+
 $('#tocButton').click(() => {
   $('#toc').toggle();
 });
 
-var tableOfContents = {
+const tableOfContents = {
 
   enable() {
     $('#toc').show();
@@ -38,7 +40,7 @@ var tableOfContents = {
       let linkText = $(this).text(); // get the text for the link
       const focusId = $(this).parent()[0].id; // get the id of the link
 
-      if (tag == 'span') {
+      if (tag === 'span') {
         tag = $(this).attr('class').replace(/.*(h[1-6]).*/, '$1');
         linkText = linkText.replace(/\s*#*/, '');
       }
@@ -125,8 +127,8 @@ var tableOfContents = {
     params = params.split('&');
     // split param and value into individual pieces
     for (let i = 0; i < params.length; i++) {
-      temp = params[i].split('=');
-      if ([temp[0]] == sname) { sval = temp[1]; }
+      const temp = params[i].split('=');
+      if ([temp[0]] === sname) { sval = temp[1]; }
     }
     return sval;
   },

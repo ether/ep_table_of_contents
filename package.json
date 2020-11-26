@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/JohnMcLear/ep_table_of_contents/issues"
   },
-  "_id": "ep_table_of_contents@0.1.1",
   "dist": {
     "shasum": "6d55c2e632bfb0e7bc7f102c56a29e27d0dc99aa"
   },
@@ -31,7 +30,7 @@
   },
   "devDependencies": {
     "eslint": "^7.14.0",
-    "eslint-config-etherpad": "^1.0.8",
+    "eslint-config-etherpad": "^1.0.10",
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.2",

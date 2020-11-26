@@ -1,4 +1,6 @@
-exports.aceEditEvent = function (hook_name, args, cb) {
+'use strict';
+
+exports.aceEditEvent = (hookName, args, cb) => {
   if (args.callstack && args.callstack.type === 'idleWorkTimer') return false; // dont do anything on idle work timer, wait for changes..
   //  if(args.callstack && args.callstack.type === "handleClick") return false; // dont do anything on idle work timer, wait for changes..
   //  if(args.callstack && args.callstack.type === "handleKeyEvent") return false; // dont do anything on idle work timer, wait for changes..

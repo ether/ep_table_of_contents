@@ -1,4 +1,6 @@
-exports.postAceInit = function () {
+'use strict';
+
+exports.postAceInit = () => {
   if (!$('#editorcontainerbox').hasClass('flex-layout')) {
     $.gritter.add({
       title: 'Error',
@@ -22,11 +24,11 @@ exports.postAceInit = function () {
     tableOfContents.disable();
   }
 
-  const urlContainstocTrue = (tableOfContents.getParam('toc') == 'true'); // if the url param is set
+  const urlContainstocTrue = (tableOfContents.getParam('toc') === 'true'); // if the url param is set
   if (urlContainstocTrue) {
     $('#options-toc').attr('checked', 'checked');
     tableOfContents.enable();
-  } else if (tableOfContents.getParam('toc') == 'false') {
+  } else if (tableOfContents.getParam('toc') === 'false') {
     $('#options-toc').attr('checked', false);
     tableOfContents.disable();
   }
