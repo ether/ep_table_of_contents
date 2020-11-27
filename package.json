@@ -8,7 +8,7 @@
     "url": "http://mclear.co.uk"
   },
   "peerDependencies": {
-    "ep_headings2": "*"
+    "ep_etherpad-lite": ">=1.8.6"
   },
   "repository": {
     "type": "git",
