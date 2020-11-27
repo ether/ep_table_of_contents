@@ -11,7 +11,7 @@ const tableOfContents = {
     this.update();
   },
 
-  disable() {
+  disable: () => {
     $('#toc').hide();
   },
 
@@ -31,7 +31,9 @@ const tableOfContents = {
       }
     }
     delims = delims.join(',');
-    const hs = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find('#innerdocbody').children('div').children(delims);
+    const hs =
+    $('iframe[name="ace_outer"]').contents().find('iframe')
+        .contents().find('#innerdocbody').children('div').children(delims);
     $(hs).each(function () {
       // Remember lineNumber is -1 what a user sees
       const lineNumber = $(this).parent().prevAll().length;
@@ -67,14 +69,16 @@ const tableOfContents = {
     clientVars.plugins.plugins.ep_table_of_context = toc;
     let tocContent = '';
     $.each(toc, (h, v) => { // for each item we should display
-      const TOCString = `<a title='${v.text}' class='tocItem toc${v.tag}' data-class='toc${v.tag}' onClick="tableOfContents.scroll('${v.y}');" data-offset='${v.y}'>${v.text}</a>`;
+      const TOCString =
+      `<a title='${v.text}' class='tocItem toc${v.tag}' data-class='toc${v.tag}' \
+      onClick="tableOfContents.scroll('${v.y}');" data-offset='${v.y}'>${v.text}</a>`;
       tocContent += TOCString;
     });
     $('#tocItems').html(tocContent);
   },
 
   // get HTML
-  getPadHTML(rep) {
+  getPadHTML: (rep) => {
     if ($('#options-toc').is(':checked')) {
       tableOfContents.findTags();
     }
@@ -107,21 +111,21 @@ const tableOfContents = {
     });
   },
 
-  update(rep) {
+  update: (rep) => {
     if (rep) {
       tableOfContents.showPosition(rep);
     }
     tableOfContents.getPadHTML(rep);
   },
 
-  scroll(newY) {
+  scroll: (newY) => {
     const $outerdoc = $('iframe[name="ace_outer"]').contents().find('#outerdocbody');
     const $outerdocHTML = $outerdoc.parent();
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
   },
 
-  getParam(sname) {
+  getParam: (sname) => {
     let params = location.search.substr(location.search.indexOf('?') + 1);
     let sval = '';
     params = params.split('&');

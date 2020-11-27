@@ -38,7 +38,11 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": "etherpad/plugin"
+    "extends": "etherpad/plugin",
+    "ignorePatterns": [
+      "/static/js/scrollTo.js",
+      "/static/js/moment-with-locales.min.js"
+    ]
   },
   "scripts": {
     "lint": "eslint .",
