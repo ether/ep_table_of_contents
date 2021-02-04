@@ -16,7 +16,7 @@ const tableOfContents = {
   },
 
   // Find Tags
-  findTags() {
+  findTags: () => {
     const toc = {}; // The main object we will use
     const tocL = {}; // A per line record of each TOC item
     let count = 0;
@@ -85,7 +85,7 @@ const tableOfContents = {
   },
 
   // show the current position
-  showPosition(rep) {
+  showPosition: (rep) => {
     // We need to know current line # -- see rep
     // And we need to know what section is before this line number
     const toc = clientVars.plugins.plugins.ep_table_of_context;
