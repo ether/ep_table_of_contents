@@ -1,3 +1,5 @@
+![Publish Status](https://github.com/ether/ep_table_of_contents/workflows/Node.js%20Package/badge.svg) ![Backend Tests Status](https://github.com/ether/ep_table_of_contents/workflows/Backend%20tests/badge.svg)
+
 # Builds a table of contents into the Etherpad interface
 
 Enable under settings.
