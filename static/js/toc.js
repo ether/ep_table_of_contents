@@ -67,14 +67,19 @@ const tableOfContents = {
     });
 
     clientVars.plugins.plugins.ep_table_of_context = toc;
-    let tocContent = '';
+    $('#tocItems').html('');
     $.each(toc, (h, v) => { // for each item we should display
-      const TOCString =
-      `<a title='${v.text}' class='tocItem toc${v.tag}' data-class='toc${v.tag}' \
-      onClick="tableOfContents.scroll('${v.y}');" data-offset='${v.y}'>${v.text}</a>`;
-      tocContent += TOCString;
+      const $link = $('<a>',{
+        text: v.text,
+        title: v.text,
+        href: '#',
+        class: `tocItem toc${v.tag}`,
+        click: function(){ tableOfContents.scroll(`${v.y}`);return false;}
+      });
+      $link.data('class', `toc${v.tag}`);
+      $link.data('offset', `${v.y}`);
+      $link.appendTo('#tocItems');
     });
-    $('#tocItems').html(tocContent);
   },
 
   // get HTML
