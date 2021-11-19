@@ -131,14 +131,9 @@ const tableOfContents = {
   },
 
   getParam: (sname) => {
-    let params = location.search.substr(location.search.indexOf('?') + 1);
-    let sval = '';
-    params = params.split('&');
-    // split param and value into individual pieces
-    for (let i = 0; i < params.length; i++) {
-      const temp = params[i].split('=');
-      if ([temp[0]] === sname) { sval = temp[1]; }
-    }
+    let sval = true;
+    const urlParams = new URLSearchParams(location.href);
+    if(urlParams.get(sname) === "false") sval = false;
     return sval;
   },
 
