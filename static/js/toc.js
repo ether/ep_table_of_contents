@@ -133,7 +133,7 @@ const tableOfContents = {
   getParam: (sname) => {
     let sval = true;
     const urlParams = new URLSearchParams(location.href);
-    if(urlParams.get(sname) === "false") sval = false;
+    if (urlParams.get(sname) === 'false') sval = false;
     return sval;
   },
 
