@@ -7,7 +7,8 @@
         "eejsBlock_styles"            : "ep_table_of_contents/index",
         "eejsBlock_mySettings"        : "ep_table_of_contents/index",
         "eejsBlock_editorContainerBox": "ep_table_of_contents/index",
-        "eejsBlock_dd_view"           : "ep_table_of_contents/index"
+        "eejsBlock_dd_view"           : "ep_table_of_contents/index",
+        "eejsBlock_editbarMenuRight"  : "ep_table_of_contents/index"
       },
       "client_hooks":{
         "aceEditEvent"           : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent",
