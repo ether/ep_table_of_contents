@@ -27,11 +27,13 @@ exports.postAceInit = () => {
   }
 
   const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
-  if (urlContainstocTrue) {
-    $('#options-toc').attr('checked', 'checked');
-    tableOfContents.enable();
-  } else {
-    $('#options-toc').attr('checked', false);
-    tableOfContents.disable();
+  if (typeof(urlContainstocTrue) !== 'undefined') {
+    if (urlContainstocTrue) {
+      $('#options-toc').attr('checked', 'checked');
+      tableOfContents.enable();
+    } else {
+      $('#options-toc').attr('checked', false);
+      tableOfContents.disable();
+    }
   }
 };
