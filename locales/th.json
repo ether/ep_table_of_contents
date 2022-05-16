@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Andibecker"
+			"Andibecker",
+			"Trisorn Triboon"
 		]
 	},
-	"ep_table_of_contents.toc": "แสดงสารบัญ"
+	"ep_table_of_contents.toc": "แสดงสารบัญของเนื้อหา"
 }
