@@ -15,6 +15,8 @@ If you want to have the TOC shown by default, add following snippet to your `set
 },
 ```
 
+You can also set this on a per-pad basis by setting the URL parameter `toc` to `true` or `false`.
+
 ## License
 Copyright 2014, John McLear
 
