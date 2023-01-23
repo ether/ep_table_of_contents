@@ -26,11 +26,11 @@ exports.postAceInit = () => {
     tableOfContents.disable();
   }
 
-  const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
-  if (urlContainstocTrue) {
+  const urlContainstocParam = tableOfContents.getParam('toc'); // if the url param is set
+  if (urlContainstocParam === true) {
     $('#options-toc').attr('checked', 'checked');
     tableOfContents.enable();
-  } else {
+  } else if (urlContainstocParam === false) {
     $('#options-toc').attr('checked', false);
     tableOfContents.disable();
   }

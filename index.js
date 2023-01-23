@@ -27,15 +27,13 @@ exports.eejsBlock_scripts = (hookName, args, cb) => {
 };
 
 exports.eejsBlock_mySettings = (hookName, args, cb) => {
-  let checkedState = 'unchecked';
-  if (settings.ep_toc) {
-    if (settings.ep_toc.disable_by_default === true) {
-      checkedState = 'unchecked';
-    } else {
-      checkedState = 'checked';
-    }
+  let checkedAttribute = 'checked';
+
+  if (settings.ep_toc && settings.ep_toc.disable_by_default === true) {
+    checkedAttribute = '';
   }
+
   args.content +=
-      eejs.require('./templates/toc_entry.ejs', {checked: checkedState}, module);
+      eejs.require('./templates/toc_entry.ejs', {checked: checkedAttribute}, module);
   return cb();
 };
