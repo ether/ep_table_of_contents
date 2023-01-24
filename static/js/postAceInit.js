@@ -30,7 +30,7 @@ exports.postAceInit = () => {
   if (urlContainstocParam === true) {
     $('#options-toc').attr('checked', 'checked');
     tableOfContents.enable();
-  } else if (urlContainstocParam === false) {
+  } else if (urlContainstocParam === false || window.innerWidth < 600) {
     $('#options-toc').attr('checked', false);
     tableOfContents.disable();
   }
