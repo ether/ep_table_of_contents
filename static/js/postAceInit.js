@@ -30,8 +30,5 @@ exports.postAceInit = () => {
   if (urlContainstocTrue) {
     $('#options-toc').attr('checked', 'checked');
     tableOfContents.enable();
-  } else {
-    $('#options-toc').attr('checked', false);
-    tableOfContents.disable();
   }
 };
