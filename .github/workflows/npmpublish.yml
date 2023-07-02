@@ -111,6 +111,8 @@ jobs:
       # already-used version number. By running `npm publish` after `git push`,
       # back-to-back merges will cause the first merge's workflow to fail but
       # the second's will succeed.
+      - run: npm run build
+        name: Build with Rollup
       -
         run: npm publish
         env:
