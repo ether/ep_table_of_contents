@@ -2,17 +2,19 @@
 // eslint-disable-next-line strict
 const typescript = require('rollup-plugin-typescript2');
 const copy = require('rollup-plugin-copy');
+const glob = require('glob');
 
 module.exports = {
   external:['ep_etherpad-lite/node/eejs','ep_etherpad-lite/node/utils/Settings'],
-  input: ['./src/index.ts'],
+  input: glob.sync('src/**/*.ts'), // Matches all TypeScript files in the 'src' directory and its subdirectories
   output: {
+    preserveModules: true,
     dir: './dist',
     format: 'cjs',
   },
   plugins: [
     typescript({
-      include: ['*.ts+(|x)', '**/*.ts+(|x)', '../**/*.ts+(|x)'],
+      tsconfig: 'tsconfig.json',
     }),
     copy({
         targets: [
