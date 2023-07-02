@@ -1,8 +1,31 @@
 'use strict';
 
+declare var clientVars:any
+
 $('#tocButton').click(() => {
   $('#toc').toggle();
 });
+
+
+type Rep = {
+  selEnd: number[];
+  selStart:number,
+}
+
+type ValMap = {
+    [key:string]:string
+}
+
+type TocMap = {
+  [key:string]:{
+    tag: string,
+    y: string,
+    text: string,
+    focusId: string,
+    lineNumber: number,
+  }
+}
+
 
 const tableOfContents = {
 
@@ -17,8 +40,8 @@ const tableOfContents = {
 
   // Find Tags
   findTags: () => {
-    const toc = {}; // The main object we will use
-    const tocL = {}; // A per line record of each TOC item
+    const toc:TocMap = {}; // The main object we will use
+    const tocL :ValMap =  {}; // A per line record of each TOC item
     let count = 0;
     let delims = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
     if (clientVars.plugins.plugins.ep_context) {
@@ -30,10 +53,10 @@ const tableOfContents = {
         });
       }
     }
-    delims = delims.join(',');
+    let delimsJoined = delims.join(',');
     const hs =
     $('iframe[name="ace_outer"]').contents().find('iframe')
-        .contents().find('#innerdocbody').children('div').children(delims);
+        .contents().find('#innerdocbody').children('div').children(delimsJoined);
     $(hs).each(function () {
       // Remember lineNumber is -1 what a user sees
       const lineNumber = $(this).parent().prevAll().length;
@@ -43,6 +66,7 @@ const tableOfContents = {
       const focusId = $(this).parent()[0].id; // get the id of the link
 
       if (tag === 'span') {
+        // @ts-ignore
         tag = $(this).attr('class').replace(/.*(h[1-6]).*/, '$1');
         linkText = linkText.replace(/\s*#*/, '');
       }
@@ -83,14 +107,14 @@ const tableOfContents = {
   },
 
   // get HTML
-  getPadHTML: (rep) => {
+  getPadHTML: (rep:Rep|undefined) => {
     if ($('#options-toc').is(':checked')) {
       tableOfContents.findTags();
     }
   },
 
   // show the current position
-  showPosition: (rep) => {
+  showPosition: (rep:Rep) => {
     // We need to know current line # -- see rep
     // And we need to know what section is before this line number
     const toc = clientVars.plugins.plugins.ep_table_of_context;
@@ -103,7 +127,7 @@ const tableOfContents = {
         // we might be showing this..
         const nextLine = toc[k];
         if (nextLine.lineNumber <= repLineNumber) {
-          const activeToc = parseInt(k) + 1;
+          const activeToc = parseInt(String(k)) + 1;
 
           // Seems expensive, we go through each item and remove class
           $('.tocItem').each(function () {
@@ -116,21 +140,21 @@ const tableOfContents = {
     });
   },
 
-  update: (rep) => {
+  update: (rep?:Rep) => {
     if (rep) {
       tableOfContents.showPosition(rep);
     }
     tableOfContents.getPadHTML(rep);
   },
 
-  scroll: (newY) => {
+  scroll: (newY:string) => {
     const $outerdoc = $('iframe[name="ace_outer"]').contents().find('#outerdocbody');
     const $outerdocHTML = $outerdoc.parent();
     $outerdoc.animate({scrollTop: newY});
     $outerdocHTML.animate({scrollTop: newY}); // needed for FF
   },
 
-  getParam: (sname) => {
+  getParam: (sname:string) => {
     let sval = true;
     const urlParams = new URLSearchParams(location.href);
     if (urlParams.get(sname) === 'false') sval = false;

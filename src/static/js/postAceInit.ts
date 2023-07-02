@@ -1,8 +1,11 @@
 /* global tableOfContents */
 'use strict';
 
-exports.postAceInit = () => {
+declare var tableOfContents:any
+
+export const postAceInit = () => {
   if (!$('#editorcontainerbox').hasClass('flex-layout')) {
+    // @ts-ignore
     $.gritter.add({
       title: 'Error',
       text:
@@ -11,16 +14,18 @@ exports.postAceInit = () => {
       class_name: 'error',
     });
   }
+
+  const optionToc = $('#options-toc')
   /* on click */
-  $('#options-toc').on('click', () => {
-    if ($('#options-toc').is(':checked')) {
+  optionToc.on('click', () => {
+    if (optionToc.is(':checked')) {
       tableOfContents.enable(); // enables line tocping
     } else {
-      $('#options-toc').attr('checked', false);
+      $('#options-toc').attr('checked', String(false));
       tableOfContents.disable(); // disables line tocping
     }
   });
-  if ($('#options-toc').is(':checked')) {
+  if (optionToc.is(':checked')) {
     tableOfContents.enable();
   } else {
     tableOfContents.disable();
@@ -28,10 +33,10 @@ exports.postAceInit = () => {
 
   const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
   if (urlContainstocTrue) {
-    $('#options-toc').attr('checked', 'checked');
+    optionToc.attr('checked', 'checked');
     tableOfContents.enable();
   } else {
-    $('#options-toc').attr('checked', false);
+    optionToc.attr('checked', String(false));
     tableOfContents.disable();
   }
 };

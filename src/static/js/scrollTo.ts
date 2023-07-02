@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /*!
  * jQuery.scrollTo
  * Copyright (c) 2007 Ariel Flesler - aflesler ○ gmail • com | https://github.com/flesler
@@ -5,7 +7,7 @@
  * https://github.com/flesler/jquery.scrollTo
  * @projectDescription Lightweight, cross-browser and highly customizable animated scrolling with jQuery
  * @author Ariel Flesler
- * @version 2.1.2
+ * @version 2.1.3
  */
 ;(function(factory) {
 	'use strict';
@@ -35,6 +37,11 @@
 	function isWin(elem) {
 		return !elem.nodeName ||
 			$.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
+	}
+
+	function isFunction(obj) {
+		// Brought from jQuery since it's deprecated
+		return typeof obj === 'function'
 	}
 
 	$.fn.scrollTo = function(target, duration, settings) {
@@ -83,7 +90,7 @@
 					}
 					// Relative/Absolute selector
 					targ = win ? $(targ) : $(targ, elem);
-					/* falls through */
+				/* falls through */
 				case 'object':
 					if (targ.length === 0) return;
 					// DOMElement / jQuery
@@ -93,7 +100,7 @@
 					}
 			}
 
-			var offset = $.isFunction(settings.offset) && settings.offset(elem, targ) || settings.offset;
+			var offset = isFunction(settings.offset) && settings.offset(elem, targ) || settings.offset;
 
 			$.each(settings.axis.split(''), function(i, axis) {
 				var Pos	= axis === 'x' ? 'Left' : 'Top',
@@ -180,30 +187,30 @@
 	};
 
 	function both(val) {
-		return $.isFunction(val) || $.isPlainObject(val) ? val : { top:val, left:val };
+		return isFunction(val) || $.isPlainObject(val) ? val : { top:val, left:val };
 	}
 
 	// Add special hooks so that window scroll properties can be animated
 	$.Tween.propHooks.scrollLeft =
-	$.Tween.propHooks.scrollTop = {
-		get: function(t) {
-			return $(t.elem)[t.prop]();
-		},
-		set: function(t) {
-			var curr = this.get(t);
-			// If interrupt is true and user scrolled, stop animating
-			if (t.options.interrupt && t._last && t._last !== curr) {
-				return $(t.elem).stop();
+		$.Tween.propHooks.scrollTop = {
+			get: function(t) {
+				return $(t.elem)[t.prop]();
+			},
+			set: function(t) {
+				var curr = this.get(t);
+				// If interrupt is true and user scrolled, stop animating
+				if (t.options.interrupt && t._last && t._last !== curr) {
+					return $(t.elem).stop();
+				}
+				var next = Math.round(t.now);
+				// Don't waste CPU
+				// Browsers don't render floating point scroll
+				if (curr !== next) {
+					$(t.elem)[t.prop](next);
+					t._last = this.get(t);
+				}
 			}
-			var next = Math.round(t.now);
-			// Don't waste CPU
-			// Browsers don't render floating point scroll
-			if (curr !== next) {
-				$(t.elem)[t.prop](next);
-				t._last = this.get(t);
-			}
-		}
-	};
+		};
 
 	// AMD requirement
 	return $scrollTo;
