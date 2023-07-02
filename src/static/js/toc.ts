@@ -27,7 +27,7 @@ type TocMap = {
 }
 
 
-const tableOfContents = {
+export const tableOfContents = {
 
   enable() {
     $('#toc').show();

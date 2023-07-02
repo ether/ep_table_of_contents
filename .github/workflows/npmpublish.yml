@@ -114,7 +114,7 @@ jobs:
       - run: npm run build
         name: Build with Rollup
       -
-        run: npm publish
+        run: cd dist && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       -

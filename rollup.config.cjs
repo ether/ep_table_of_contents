@@ -18,6 +18,8 @@ module.exports = {
     }),
     copy({
         targets: [
+          {src:'./package.json', dest:'./dist'},
+          { src: './LICENSE', dest: './dist' },
             { src: './src/locales/*', dest: './dist/locales' },
           { src: './src/static/css/*', dest: './dist/static/css' },
           { src: './src/templates', dest: './dist/templates' },
