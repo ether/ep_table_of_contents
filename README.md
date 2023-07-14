@@ -17,6 +17,14 @@ If you want to have the TOC shown by default, add following snippet to your `set
 
 You can also set this on a per-pad basis by setting the URL parameter `toc` to `true` or `false`.
 
+If you want to have a button in the toolbar to toggle the TOC, add following snippet to your `settings.json`:
+
+```json
+"ep_toc": {
+  "show_button": true
+},
+```
+
 ## License
 Copyright 2014, John McLear
 

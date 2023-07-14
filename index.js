@@ -20,6 +20,13 @@ exports.eejsBlock_editorContainerBox = (hookName, args, cb) => {
   return cb();
 };
 
+exports.eejsBlock_editbarMenuRight = (hookName, args, cb) => {
+  if (settings.ep_toc && settings.ep_toc.show_button === true) {
+    args.content = eejs.require('ep_table_of_contents/templates/barButton.ejs') + args.content;
+  }
+  return cb();
+};
+
 exports.eejsBlock_scripts = (hookName, args, cb) => {
   args.content +=
   "<script src='../static/plugins/ep_table_of_contents/static/js/toc.js'></script>";
