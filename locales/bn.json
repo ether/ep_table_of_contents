@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"আজিজ"
+			"আজিজ",
+			"আফতাবুজ্জামান"
 		]
 	},
+	"ep_table_of_contents.toc.title": "সূচিপত্র দেখাও",
 	"ep_table_of_contents.toc": "বিষয়বস্তুর সারণী দেখান"
 }
