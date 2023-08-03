@@ -42,7 +42,7 @@ jobs:
       -
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 12
           cache: 'npm'
           cache-dependency-path: |
             node_modules/ep_etherpad-lite/package-lock.json
