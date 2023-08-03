@@ -44,19 +44,19 @@ jobs:
         name: Install legacy npm for correct dependency resolution
 
       - name: Install npm
-        run: npm ci && npx rollup -c rollup.config.cjs && cp -r node_modules/ dist/node_modules && cp package-lock.json ./dist/package-lock.json
+        run: npm ci && npx rollup -c rollup.config.cjs && cp package-lock.json ./dist/package-lock.json
+      # This is necessary for actions/setup-node because '..' can't be used in
+      # cache-dependency-path.
+      - name: Create ep_etherpad-lite symlink
+        run: |
+          mkdir -p node_modules
+          ln -s ../../etherpad-lite/src node_modules/ep_etherpad-lite
       - name: Remove typescript output
         run: |
           shopt -s extglob
           rm -rf !("dist")
           cp -r ./dist/* .
-      # This is necessary for actions/setup-node because '..' can't be used in
-      # cache-dependency-path.
-      -
-        name: Create ep_etherpad-lite symlink
-        run: |
-          mkdir -p node_modules
-          ln -s ../../etherpad-lite/src node_modules/ep_etherpad-lite
+          ls -lisa
 
       # All of ep_etherpad-lite's devDependencies are installed because the
       # plugin might do `require('ep_etherpad-lite/node_modules/${devDep}')`.
