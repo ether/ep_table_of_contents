@@ -42,7 +42,7 @@ jobs:
           path: ./build
       -
         name: Create output
-        run: (cd ./build && npm i &&  npx rollup -c rollup.config.cjs) && mkdir -p ./node_modules
+        run: (cd ./build && npm i &&  npx rollup -c rollup.config.cjs && cp package-lock.json ./dist/package-lock.json) && mkdir -p ./node_modules
       -
         name: Determine plugin name
         id: plugin_name
