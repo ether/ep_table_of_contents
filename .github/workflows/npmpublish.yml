@@ -14,16 +14,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: |
-            node_modules/ep_etherpad-lite/package-lock.json
-            node_modules/ep_etherpad-lite/bin/doc/package-lock.json
-            package-lock.json
-      - run: npm install npm@6.14.18 -g
-        name: Install legacy npm for correct dependency resolution
       # Clone ether/etherpad-lite to ../etherpad-lite so that ep_etherpad-lite
       # can be "installed" in this plugin's node_modules. The checkout v2 action
       # doesn't support cloning outside of $GITHUB_WORKSPACE (see
@@ -38,10 +28,21 @@ jobs:
           path: etherpad-lite
       -
         run: mv etherpad-lite ..
-      # etherpad-lite has been moved outside of $GITHUB_WORKSPACE, so it is now
-      # safe to clone this plugin's repo to $GITHUB_WORKSPACE.
       -
         uses: actions/checkout@v3
+      # etherpad-lite has been moved outside of $GITHUB_WORKSPACE, so it is now
+      # safe to clone this plugin's repo to $GITHUB_WORKSPACE.
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: |
+            node_modules/ep_etherpad-lite/package-lock.json
+            node_modules/ep_etherpad-lite/bin/doc/package-lock.json
+            package-lock.json
+      - run: npm install npm@6.14.18 -g
+        name: Install legacy npm for correct dependency resolution
+
       - run: Install npm
         name: npm ci && npx rollup -c rollup.config.cjs && cp -r node_modules/ dist/node_modules && cp package-lock.json ./dist/package-lock.json
       - name: Remove typescript output
