@@ -52,7 +52,7 @@ jobs:
       -
         name: Rename plugin directory
         run: |
-          mv ../build/dist ./node_modules/"${PLUGIN_NAME}"
+          mv ./build/dist ./node_modules/"${PLUGIN_NAME}"
         env:
           PLUGIN_NAME: ${{ steps.plugin_name.outputs.plugin_name }}
       -
