@@ -22,7 +22,7 @@ module.exports = {
           { src: './LICENSE', dest: './dist' },
             { src: './src/locales/*', dest: './dist/locales' },
           { src: './src/static/css/*', dest: './dist/static/css' },
-          { src: './src/templates', dest: './dist/templates' },
+          { src: './src/templates', dest: './dist/' },
             {src:'./ep.json', dest:'./dist'},
         ]
     })
