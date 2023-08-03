@@ -82,10 +82,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 12
           cache: 'npm'
-      - run: npm install npm@6.14.18 -g
-        name: Install legacy npm for correct dependency resolution
       -
         name: Bump version (patch)
         run: |
@@ -111,6 +109,8 @@ jobs:
       # already-used version number. By running `npm publish` after `git push`,
       # back-to-back merges will cause the first merge's workflow to fail but
       # the second's will succeed.
+      - name: Install latest npm version
+        run: npm install npm@latest
       -
         run: npm publish
         env:
