@@ -51,7 +51,7 @@ jobs:
             src/package-lock.json
             src/bin/doc/package-lock.json
             node_modules/${{ steps.plugin_name.outputs.plugin_name }}/package-lock.json
-      - run: npm install npm@6.14.18
+      - run: npm install npm@6.14.18 -g
         name: Install legacy npm for correct dependency resolution
       -
         name: Install plugin dependencies

@@ -48,7 +48,7 @@ jobs:
             node_modules/ep_etherpad-lite/package-lock.json
             node_modules/ep_etherpad-lite/bin/doc/package-lock.json
             package-lock.json
-      - run: npm install npm@6.14.18
+      - run: npm install npm@6.14.18 -g
         name: Install legacy npm for correct dependency resolution
       # All of ep_etherpad-lite's devDependencies are installed because the
       # plugin might do `require('ep_etherpad-lite/node_modules/${devDep}')`.
