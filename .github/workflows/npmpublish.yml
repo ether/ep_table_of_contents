@@ -46,7 +46,7 @@ jobs:
       - name: Install npm
         run: npm ci && npx rollup -c rollup.config.cjs && cp -r node_modules/ dist/node_modules && cp package-lock.json ./dist/package-lock.json
       - name: Remove typescript output
-        run: rm rf -v !("dist") && cp -r ./dist/* .
+        run: rm -rf -v !("dist") && cp -r ./dist/* .
       # This is necessary for actions/setup-node because '..' can't be used in
       # cache-dependency-path.
       -
