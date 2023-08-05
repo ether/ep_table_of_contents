@@ -11,7 +11,7 @@ exports.postAceInit = () => {
       class_name: 'error',
     });
   }
-  const optionToc =   $('#options-toc')
+  const optionToc = $('#options-toc');
   /* on click */
   optionToc.on('click', () => {
     if (optionToc.is(':checked')) {
