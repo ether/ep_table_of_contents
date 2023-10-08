@@ -44,7 +44,7 @@ jobs:
           PLUGIN_NAME: ${{ steps.plugin_name.outputs.plugin_name }}
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: |
             src/package-lock.json
