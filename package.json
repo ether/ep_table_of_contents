@@ -1,14 +1,11 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.3.82",
+  "version": "0.3.83",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
     "email": "john@mclear.co.uk",
     "url": "http://mclear.co.uk"
-  },
-  "peerDependencies": {
-    "ep_etherpad-lite": ">=1.8.6"
   },
   "repository": {
     "type": "git",
@@ -29,15 +26,15 @@
     "url": "https://etherpad.org/"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-etherpad": "^3.0.22",
-    "typescript": "^4.9.5"
+    "eslint": "^8.57.0",
+    "eslint-config-etherpad": "^4.0.4",
+    "typescript": "^5.4.2"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=18.0.0"
   }
 }
