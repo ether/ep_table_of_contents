@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Maantietäjä"
+			"Maantietäjä",
+			"Yupik"
 		]
 	},
-	"ep_table_of_contents.toc.title": "Näytä sisällysluettelo.",
-	"ep_table_of_contents.toc": "Näytä sisällysluettelo."
+	"ep_table_of_contents.toc.title": "Näytä sisällysluettelo",
+	"ep_table_of_contents.toc": "Näytä sisällysluettelo"
 }

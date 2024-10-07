@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kimberli Mäkäräinen (WMNO)"
+			"Kimberli Mäkäräinen (WMNO)",
+			"Yupik"
 		]
 	},
+	"ep_table_of_contents.toc.title": "Čájet sisdoallologahallama",
 	"ep_table_of_contents.toc": "Čájet sisdoallologahallama"
 }
