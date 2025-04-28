@@ -28,8 +28,11 @@ exports.postAceInit = () => {
   }
 
   const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
-  if (urlContainstocTrue) {
+  if (urlContainstocTrue === 'true') {
     optionToc.attr('checked', 'checked');
     tableOfContents.enable();
+  } else if (urlContainstocTrue === 'false') {
+    optionToc.attr('checked', false);
+    tableOfContents.disable();
   }
 };
