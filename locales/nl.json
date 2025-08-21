@@ -1,7 +1,9 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"McDutchie"
+		]
 	},
-	"ep_table_of_contents.toc.title": "Toon Inhoudsopgave",
-	"ep_table_of_contents.toc": "Toon Inhoudsopgave"
+	"ep_table_of_contents.toc.title": "Inhoudsopgave weergeven",
+	"ep_table_of_contents.toc": "Inhoudsopgave weergeven"
 }
