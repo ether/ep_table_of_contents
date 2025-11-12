@@ -132,7 +132,7 @@ const tableOfContents = {
 
   getParam: (sname) => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.has(sname);
+    return urlParams.get(sname);
   },
 
 };
