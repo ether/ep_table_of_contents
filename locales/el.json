@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jimkats",
 			"Norhorn"
 		]
 	},
+	"ep_table_of_contents.toc.title": "Προβολή πίνακα περιεχομένων",
 	"ep_table_of_contents.toc": "Προβολή του Πίνακα Περιεχομένων"
 }
