@@ -77,7 +77,6 @@ const tableOfContents = {
   // Find Tags
   findTags: () => {
     const toc = [];
-    const tocL = {}; // A per line record of each TOC item
     let delims = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
     if (clientVars.plugins.plugins.ep_context) {
       if (clientVars.plugins.plugins.ep_context.styles) {
@@ -103,15 +102,6 @@ const tableOfContents = {
       if (tag === 'span') {
         tag = $(this).attr('class').replace(/.*(h[1-6]).*/, '$1');
         linkText = linkText.replace(/\s*#*/, '');
-      }
-
-      // Create an object of lineNumbers that include the tag
-      tocL[lineNumber] = tag;
-
-      // Does the previous line already have this delim?
-      // If so do nothing..
-      if (tocL[lineNumber - 1]) {
-        if (tocL[lineNumber - 1] === tag) return;
       }
 
       toc.push({
