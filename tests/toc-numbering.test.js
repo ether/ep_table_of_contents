@@ -78,3 +78,13 @@ test('counts nested sections correctly across section changes', () => {
     {depth: 3, numbering: '2.1.1'},
   ]);
 });
+
+test('keeps numbering stable across many sibling headings', () => {
+  const headingCount = 200;
+  const summary = summarize(Array.from({length: headingCount}, () => 'h2'));
+
+  assert.equal(summary.length, headingCount);
+  assert.deepEqual(summary[0], {depth: 1, numbering: '1'});
+  assert.deepEqual(summary[99], {depth: 1, numbering: '100'});
+  assert.deepEqual(summary[199], {depth: 1, numbering: '200'});
+});

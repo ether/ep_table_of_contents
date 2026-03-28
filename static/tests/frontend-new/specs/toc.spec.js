@@ -12,6 +12,13 @@ const enableToc = async (page) => {
   await expect(page.locator('#toc')).toBeVisible();
 };
 
+const writeSections = async (page, count, prefix) => {
+  for (let i = 0; i < count; i++) {
+    await writeToPad(page, `${prefix} ${i + 1}`);
+    if (i < count - 1) await page.keyboard.press('Enter');
+  }
+};
+
 const applyHeading = async (page, lineNumber, headingLevel) => {
   const padBody = await getPadBody(page);
   await padBody.locator('div').nth(lineNumber).selectText();
@@ -57,5 +64,21 @@ test.describe('table of contents numbering', () => {
     await expect(tocItems.nth(0)).toHaveText('Document title');
     await expect(tocItems.nth(1)).toHaveText('1. First section');
     await expect(tocItems.nth(2)).toHaveText('2. Second section');
+  });
+
+  test('keeps all TOC entries for larger sets of sibling headings', async ({page}) => {
+    const headingCount = 25;
+    await writeSections(page, headingCount, 'Section');
+
+    const tocItems = page.locator('#tocItems .tocItem');
+    for (let i = 0; i < headingCount; i++) {
+      await applyHeading(page, i, 2);
+      await expect(page.locator(`#tocItems .tocItem[title="Section ${i + 1}"]`)).toBeVisible({timeout: 15_000});
+    }
+
+    await expect(tocItems).toHaveCount(headingCount);
+    await expect(tocItems.nth(0)).toHaveText('1. Section 1');
+    await expect(tocItems.nth(9)).toHaveText('10. Section 10');
+    await expect(tocItems.nth(24)).toHaveText('25. Section 25');
   });
 });

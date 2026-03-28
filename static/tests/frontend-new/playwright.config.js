@@ -9,6 +9,7 @@ module.exports = {
   retries: process.env.CI ? 2 : 0,
   use: {
     baseURL: 'http://127.0.0.1:9001',
+    viewport: {width: 1280, height: 3000},
     trace: 'on-first-retry',
   },
 };
