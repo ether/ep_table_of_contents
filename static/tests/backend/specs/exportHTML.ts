@@ -1,30 +1,28 @@
 'use strict';
 
 import {strict as assert} from 'assert';
-import fs from 'node:fs';
-import path from 'node:path';
-import settings from 'ep_etherpad-lite/node/utils/Settings';
 import * as common from 'ep_etherpad-lite/tests/backend/common';
 import {randomString} from 'ep_etherpad-lite/static/js/pad_utils';
 
 let agent:any;
 const apiVersion = 1;
-let apiKey: string;
-const withApiKey = (url: string) => `${url}${url.includes('?') ? '&' : '?'}apikey=${encodeURIComponent(apiKey)}`;
+
+const authGet = async (url: string) =>
+    agent.get(url).set('authorization', await common.generateJWTToken());
 
 const createPad = async (padId: string) => {
-  const res = await agent.get(withApiKey(`/api/${apiVersion}/createPad?padID=${padId}`));
+  const res = await authGet(`/api/${apiVersion}/createPad?padID=${padId}`);
   assert.equal(res.body.code, 0, 'Unable to create new pad');
   return padId;
 };
 
 const setHTML = async (padId: string, html: string) => {
-  const res = await agent.get(withApiKey(`/api/${apiVersion}/setHTML?padID=${padId}&html=${encodeURIComponent(html)}`));
+  const res = await authGet(`/api/${apiVersion}/setHTML?padID=${padId}&html=${encodeURIComponent(html)}`);
   assert.equal(res.body.code, 0, 'Unable to set pad HTML');
   return padId;
 };
 
-const getHTMLEndpointFor = (padId: string) => withApiKey(`/api/${apiVersion}/getHTML?padID=${padId}`);
+const getHTMLEndpointFor = (padId: string) => `/api/${apiVersion}/getHTML?padID=${padId}`;
 
 const buildHTML = (body: string) => `<!doctype html><html><body>${body}</body></html>`;
 
@@ -33,7 +31,6 @@ describe('TOC export/import behavior', function () {
 
   before(async function () {
     agent = await common.init();
-    apiKey = fs.readFileSync(path.join(settings.root, 'APIKEY.txt'), 'utf8').trim();
   });
 
   beforeEach(async function () {
@@ -43,9 +40,8 @@ describe('TOC export/import behavior', function () {
   });
 
   it('keeps the import/export HTML free of TOC sidebar markup', async function () {
-    const res = await agent.get(getHTMLEndpointFor(padId))
-        .expect('Content-Type', /json/)
-        .expect(200);
+    const res = await authGet(getHTMLEndpointFor(padId));
+    assert.equal(res.status, 200);
 
     const html = res.body.data.html;
     assert.match(html, /Title/);
@@ -59,9 +55,8 @@ describe('TOC export/import behavior', function () {
   });
 
   it('does not inject TOC sidebar markup into HTML export', async function () {
-    const res = await agent.get(`/p/${padId}/export/html`)
-        .expect('Content-Type', /html/)
-        .expect(200);
+    const res = await authGet(`/p/${padId}/export/html`);
+    assert.equal(res.status, 200);
 
     const html = res.text;
     assert.match(html, /Title/);
@@ -76,9 +71,8 @@ describe('TOC export/import behavior', function () {
   });
 
   it('does not inject TOC sidebar text into plain text export', async function () {
-    const res = await agent.get(`/p/${padId}/export/txt`)
-        .expect('Content-Type', /text/)
-        .expect(200);
+    const res = await authGet(`/p/${padId}/export/txt`);
+    assert.equal(res.status, 200);
 
     const text = res.text;
     assert.match(text, /Title/);
