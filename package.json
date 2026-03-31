@@ -1,6 +1,6 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.3.102",
+  "version": "0.3.103",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
@@ -26,9 +26,9 @@
     "url": "https://etherpad.org/"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-etherpad": "^4.0.4",
-    "typescript": "^5.4.2"
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "test": "node --test tests/*.test.js",
