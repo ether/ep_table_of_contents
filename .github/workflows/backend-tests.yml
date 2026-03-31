@@ -58,22 +58,11 @@ jobs:
         working-directory: ./etherpad-lite
         run: |
           pnpm run plugins i --path  ../../plugin
-      - name: Debug plugin installation
-        working-directory: ./etherpad-lite
-        run: |
-          echo "=== src/plugin_packages ==="
-          find ./src/plugin_packages -type f 2>/dev/null | head -50 || echo "directory not found"
-          echo "=== node_modules/ep_* ==="
-          ls -la ./node_modules/ 2>/dev/null | grep ep_ || echo "none"
-          echo "=== src/node_modules/ep_* ==="
-          ls -la ./src/node_modules/ 2>/dev/null | grep ep_ || echo "none"
-          echo "=== find all backend specs ==="
-          find . -path "*/static/tests/backend/specs/*" 2>/dev/null || echo "none found"
       -
         name: Run the backend tests
         working-directory: ./etherpad-lite
         run: |
-          res=$(find . -path "./src/plugin_packages/ep_*@*/static/tests/backend/specs/**" | wc -l)
+          res=$(find ./src/plugin_packages -path "*/static/tests/backend/specs/*" 2>/dev/null | wc -l)
           if [ $res -eq 0 ]; then
           echo "No backend tests found"
           else
