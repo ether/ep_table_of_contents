@@ -9,7 +9,7 @@ import {randomString} from 'ep_etherpad-lite/static/js/pad_utils';
 
 let agent:any;
 const apiVersion = 1;
-const apiKey = fs.readFileSync(path.join(settings.root, 'APIKEY.txt'), 'utf8').trim();
+let apiKey: string;
 const withApiKey = (url: string) => `${url}${url.includes('?') ? '&' : '?'}apikey=${encodeURIComponent(apiKey)}`;
 
 const createPad = async (padId: string) => {
@@ -33,6 +33,7 @@ describe('TOC export/import behavior', function () {
 
   before(async function () {
     agent = await common.init();
+    apiKey = fs.readFileSync(path.join(settings.root, 'APIKEY.txt'), 'utf8').trim();
   });
 
   beforeEach(async function () {
