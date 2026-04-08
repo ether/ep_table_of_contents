@@ -1,4 +1,4 @@
-![Publish Status](https://github.com/ether/ep_table_of_contents/workflows/Node.js%20Package/badge.svg) ![Backend Tests Status](https://github.com/ether/ep_table_of_contents/workflows/Backend%20tests/badge.svg)
+![Publish Status](https://github.com/ether/ep_table_of_contents/workflows/Node.js%20Package/badge.svg) [![Backend Tests Status](https://github.com/ether/ep_table_of_contents/actions/workflows/test-and-release.yml/badge.svg)](https://github.com/ether/ep_table_of_contents/actions/workflows/test-and-release.yml)
 
 # Builds a table of contents into the Etherpad interface
 
