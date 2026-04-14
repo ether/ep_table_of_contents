@@ -17,7 +17,7 @@ exports.postAceInit = () => {
     if (optionToc.is(':checked')) {
       tableOfContents.enable(); // enables line tocping
     } else {
-      optionToc.attr('checked', false);
+      optionToc.prop('checked', false);
       tableOfContents.disable(); // disables line tocping
     }
   });
@@ -29,7 +29,7 @@ exports.postAceInit = () => {
 
   const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
   if (urlContainstocTrue) {
-    optionToc.attr('checked', 'checked');
+    optionToc.prop('checked', true);
     tableOfContents.enable();
   }
 };
