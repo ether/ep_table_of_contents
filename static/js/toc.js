@@ -175,7 +175,12 @@ const tableOfContents = {
 
   getParam: (sname) => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.has(sname);
+    if (!urlParams.has(sname)) return null;
+    const value = urlParams.get(sname);
+    // ?toc with no value or ?toc=true means enable
+    // ?toc=false means disable
+    if (value === 'false') return false;
+    return true;
   },
 
 };
