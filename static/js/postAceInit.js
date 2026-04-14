@@ -27,9 +27,12 @@ exports.postAceInit = () => {
     tableOfContents.disable();
   }
 
-  const urlContainstocTrue = tableOfContents.getParam('toc'); // if the url param is set
-  if (urlContainstocTrue) {
+  const tocParam = tableOfContents.getParam('toc');
+  if (tocParam === true) {
     optionToc.prop('checked', true);
     tableOfContents.enable();
+  } else if (tocParam === false) {
+    optionToc.prop('checked', false);
+    tableOfContents.disable();
   }
 };
