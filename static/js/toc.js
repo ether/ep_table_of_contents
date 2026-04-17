@@ -159,11 +159,34 @@ const tableOfContents = {
     $(`.tocItem[data-toc-index="${activeTocIndex}"]`).addClass('activeTOC');
   },
 
+  // findTags() walks every heading and rebuilds the entire ToC DOM. On
+  // pads with hundreds of headings this blocked the main thread on
+  // every keystroke and produced the 1-char-per-second typing seen in
+  // #51. Debounce the expensive scan — still fast enough to feel
+  // responsive, but no longer fires per keystroke.
+  _findTagsTimer: null,
+  _findTagsPending: false,
+  scheduleFindTags: (rep) => {
+    if (tableOfContents._findTagsTimer != null) {
+      tableOfContents._findTagsPending = true;
+      return;
+    }
+    tableOfContents._findTagsTimer = setTimeout(() => {
+      tableOfContents._findTagsTimer = null;
+      tableOfContents.findTags();
+      if (tableOfContents._findTagsPending) {
+        tableOfContents._findTagsPending = false;
+        tableOfContents.scheduleFindTags();
+      }
+    }, 300);
+  },
+
   update: (rep) => {
     if (rep) {
       tableOfContents.showPosition(rep);
     }
-    tableOfContents.getPadHTML(rep);
+    if (!$('#options-toc').is(':checked')) return;
+    tableOfContents.scheduleFindTags(rep);
   },
 
   scroll: (newY) => {
