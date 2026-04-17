@@ -25,6 +25,23 @@ If you want to have a button in the toolbar to toggle the TOC, add following sni
 },
 ```
 
+## Installation
+
+Install from the Etherpad admin UI (**Admin → Manage Plugins**,
+search for `ep_table_of_contents` and click *Install*), or from the Etherpad
+root directory:
+
+```sh
+pnpm run plugins install ep_table_of_contents
+```
+
+> ⚠️ Don't run `npm i` / `npm install` yourself from the Etherpad
+> source tree — Etherpad tracks installed plugins through its own
+> plugin-manager, and hand-editing `package.json` can leave the
+> server unable to start.
+
+After installing, restart Etherpad.
+
 ## License
 Copyright 2014, John McLear
 
