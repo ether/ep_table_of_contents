@@ -5,6 +5,23 @@
 Enable under settings.
 Create headings, watch the TOC populate in real time.
 
+## Installation
+
+Install the way Etherpad expects plugins to be installed — via the admin
+UI (**Admin → Manage Plugins → Search** for `ep_table_of_contents` and
+click *Install*), or from the Etherpad root directory:
+
+```sh
+pnpm run plugins install ep_table_of_contents
+```
+
+> ⚠️ Don't run `npm i ep_table_of_contents` yourself from the Etherpad
+> source tree. It adds the plugin to the top-level `package.json` but
+> doesn't hook it into Etherpad's own plugin registry, which can leave
+> Etherpad unable to start with `npm ls` errors (see #154).
+
+After installing, restart Etherpad.
+
 ## Configuration
 
 If you want to have the TOC shown by default, add following snippet to your `settings.json`:
