@@ -63,7 +63,14 @@ if (typeof $ !== 'undefined') {
   });
 }
 
-const tableOfContents = {
+// Expose on globalThis so other plugin scripts (postAceInit.js,
+// aceEditEvent.js) that run in their own CommonJS-style module scopes can
+// still reach it. Top-level `const` in a <script> tag is script-scoped,
+// not a global, so without this the bare `tableOfContents` identifier in
+// those modules throws `ReferenceError: tableOfContents is not defined`
+// on pad load. globalThis resolves to `window` in the browser and to
+// `global` in Node.js, so the Node unit tests keep working too.
+const tableOfContents = globalThis.tableOfContents = {
 
   enable() {
     $('#toc').show();
