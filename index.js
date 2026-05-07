@@ -2,7 +2,7 @@
 
 const eejs = require('ep_etherpad-lite/node/eejs');
 const settings = require('ep_etherpad-lite/node/utils/Settings');
-const {padToggle} = require('ep_plugin_helpers');
+const {padToggle} = require('ep_plugin_helpers/pad-toggle-server');
 
 // Parallel User Settings + Pad Wide Settings checkboxes for TOC visibility.
 // Helper owns the storage, broadcast, enforce, and i18n wiring.

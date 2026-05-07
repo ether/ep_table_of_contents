@@ -1,6 +1,10 @@
 'use strict';
 
-const {padToggle} = require('ep_plugin_helpers');
+// Sub-path import keeps the client bundle clean. Importing the top-level
+// `ep_plugin_helpers` index pulls in every helper's getters; `settings` and
+// `toggle` reach server-only modules (eejs, Settings) which esbuild can't
+// resolve for the browser.
+const {padToggle} = require('ep_plugin_helpers/pad-toggle');
 
 // postAceInit is loaded as a CommonJS plugin hook module; its scope is not
 // the same as the <script> tag that loads toc.js, so `tableOfContents` is
