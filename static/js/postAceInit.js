@@ -21,6 +21,7 @@ const tocToggle = padToggle({
   pluginName: 'ep_table_of_contents',
   settingId: 'toc',
   l10nId: 'ep_table_of_contents.toc',
+  defaultLabel: 'Show Table of Contents',
   defaultEnabled: false,
 });
 
