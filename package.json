@@ -25,6 +25,9 @@
     "type": "individual",
     "url": "https://etherpad.org/"
   },
+  "dependencies": {
+    "ep_plugin_helpers": "^0.3.0"
+  },
   "devDependencies": {
     "eslint": "^8.57.1",
     "eslint-config-etherpad": "^4.0.5",
