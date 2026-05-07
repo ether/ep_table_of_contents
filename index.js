@@ -2,6 +2,22 @@
 
 const eejs = require('ep_etherpad-lite/node/eejs');
 const settings = require('ep_etherpad-lite/node/utils/Settings');
+const {padToggle} = require('ep_plugin_helpers/pad-toggle-server');
+
+// Parallel User Settings + Pad Wide Settings checkboxes for TOC visibility.
+// Helper owns the storage, broadcast, enforce, and i18n wiring.
+const tocToggle = padToggle({
+  pluginName: 'ep_table_of_contents',
+  settingId: 'toc',
+  l10nId: 'ep_table_of_contents.toc',
+  defaultLabel: 'Show Table of Contents',
+  defaultEnabled: false,
+});
+
+exports.loadSettings = tocToggle.loadSettings;
+exports.clientVars = tocToggle.clientVars;
+exports.eejsBlock_mySettings = tocToggle.eejsBlock_mySettings;
+exports.eejsBlock_padSettings = tocToggle.eejsBlock_padSettings;
 
 exports.eejsBlock_styles = (hookName, args, cb) => {
   args.content +=
@@ -30,19 +46,5 @@ exports.eejsBlock_editbarMenuRight = (hookName, args, cb) => {
 exports.eejsBlock_scripts = (hookName, args, cb) => {
   args.content +=
   "<script src='../static/plugins/ep_table_of_contents/static/js/toc.js'></script>";
-  return cb();
-};
-
-exports.eejsBlock_mySettings = (hookName, args, cb) => {
-  let checkedState = 'unchecked';
-  if (settings.ep_toc) {
-    if (settings.ep_toc.disable_by_default === true) {
-      checkedState = 'unchecked';
-    } else {
-      checkedState = 'checked';
-    }
-  }
-  args.content +=
-      eejs.require('./templates/toc_entry.ejs', {checked: checkedState}, module);
   return cb();
 };

@@ -1,6 +1,6 @@
 {
   "name": "ep_table_of_contents",
-  "version": "0.3.140",
+  "version": "0.4.0",
   "description": "View a table of contents for your pad",
   "author": {
     "name": "John McLear",
@@ -24,6 +24,9 @@
   "funding": {
     "type": "individual",
     "url": "https://etherpad.org/"
+  },
+  "dependencies": {
+    "ep_plugin_helpers": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
