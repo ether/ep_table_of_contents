@@ -34,7 +34,7 @@ exports.eejsBlock_dd_view = (hookName, args, cb) => {
 };
 
 exports.eejsBlock_editorContainerBox =
-    template('./templates/toc.ejs');
+    template('ep_table_of_contents/templates/toc.ejs');
 
 exports.eejsBlock_editbarMenuRight = (hookName, args, cb) => {
   if (settings.ep_toc && settings.ep_toc.show_button === true) {
