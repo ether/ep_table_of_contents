@@ -1,5 +1,7 @@
 'use strict';
 
+const {template} = require('ep_plugin_helpers');
+
 const eejs = require('ep_etherpad-lite/node/eejs');
 const settings = require('ep_etherpad-lite/node/utils/Settings');
 const {padToggle} = require('ep_plugin_helpers/pad-toggle-server');
@@ -31,10 +33,8 @@ exports.eejsBlock_dd_view = (hookName, args, cb) => {
   return cb();
 };
 
-exports.eejsBlock_editorContainerBox = (hookName, args, cb) => {
-  args.content += eejs.require('./templates/toc.ejs', {}, module);
-  return cb();
-};
+exports.eejsBlock_editorContainerBox =
+    template('./templates/toc.ejs');
 
 exports.eejsBlock_editbarMenuRight = (hookName, args, cb) => {
   if (settings.ep_toc && settings.ep_toc.show_button === true) {
