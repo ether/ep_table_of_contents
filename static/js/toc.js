@@ -57,6 +57,20 @@ const getOutlineEntries = (toc) => {
   });
 };
 
+const setBooleanUrlParam = (rawUrl, name, enabled, baseUrl = window.location.href) => {
+  const url = new URL(rawUrl, baseUrl);
+  url.searchParams.set(name, String(enabled));
+  return url.toString();
+};
+
+const setEmbedCodeUrlParam = (embedCode, name, enabled, baseUrl = window.location.href) => {
+  return embedCode.replace(
+      /\bsrc=(['"])([^'"]+)\1/,
+      (match, quote, rawUrl) =>
+        `src=${quote}${setBooleanUrlParam(rawUrl, name, enabled, baseUrl)}${quote}`,
+  );
+};
+
 if (typeof $ !== 'undefined') {
   $('#tocButton').click(() => {
     $('#toc').toggle();
@@ -79,6 +93,43 @@ const tableOfContents = globalThis.tableOfContents = {
 
   disable: () => {
     $('#toc').hide();
+  },
+
+  syncShareUrls: (enabled) => {
+    const $linkInput = $('#linkinput');
+    if ($linkInput.length > 0) {
+      const linkValue = $linkInput.val();
+      if (typeof linkValue === 'string' && linkValue !== '') {
+        $linkInput.val(setBooleanUrlParam(linkValue, 'toc', enabled));
+      }
+    }
+
+    const $embedInput = $('#embedinput');
+    if ($embedInput.length > 0) {
+      const embedValue = $embedInput.val();
+      if (typeof embedValue === 'string' && embedValue.includes('src=')) {
+        $embedInput.val(setEmbedCodeUrlParam(embedValue, 'toc', enabled));
+      }
+    }
+  },
+
+  syncLocationUrl: (enabled) => {
+    if (!window.history || typeof window.history.replaceState !== 'function') return;
+    const nextUrl = setBooleanUrlParam(window.location.href, 'toc', enabled);
+    window.history.replaceState(window.history.state, document.title, nextUrl);
+  },
+
+  bindShareUrlSync: () => {
+    if (tableOfContents._shareUrlSyncBound) return;
+    tableOfContents._shareUrlSyncBound = true;
+
+    $(document).on('focusin.ep_table_of_contents', '#linkinput, #embedinput', () => {
+      tableOfContents.syncShareUrls($('#options-toc').is(':checked'));
+    });
+
+    $(document).on('change.ep_table_of_contents', '#readonlyinput', () => {
+      setTimeout(() => tableOfContents.syncShareUrls($('#options-toc').is(':checked')));
+    });
   },
 
   // Find Tags
@@ -162,7 +213,7 @@ const tableOfContents = globalThis.tableOfContents = {
     });
 
     $('.tocItem').removeClass('activeTOC');
-    if (activeTocIndex === null) return;
+    if (activeTocIndex == null) return;
     $(`.tocItem[data-toc-index="${activeTocIndex}"]`).addClass('activeTOC');
   },
 
@@ -212,5 +263,7 @@ const tableOfContents = globalThis.tableOfContents = {
     if (value === 'false') return false;
     return true;
   },
+
+  _shareUrlSyncBound: false,
 
 };

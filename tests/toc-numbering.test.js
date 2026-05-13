@@ -12,18 +12,31 @@ const loadTocHelpers = () => {
   const sandbox = {
     console,
     URLSearchParams,
+    URL,
     globalThis: {},
+    window: {
+      location: {href: 'https://example.test/p/test-pad?showChat=false#section'},
+    },
     $: () => ({
-      click() {},
+      click: () => {},
     }),
   };
   sandbox.globalThis = sandbox;
-  vm.runInNewContext(`${source}
-globalThis.__tocTestExports = {getHeadingLevel, getOutlineEntries};`, sandbox, {filename: tocPath});
+  vm.runInNewContext(
+      `${source}
+globalThis.__tocTestExports = {
+  getHeadingLevel,
+  getOutlineEntries,
+  setBooleanUrlParam,
+  setEmbedCodeUrlParam,
+};`,
+      sandbox,
+      {filename: tocPath},
+  );
   return sandbox.__tocTestExports;
 };
 
-const {getOutlineEntries} = loadTocHelpers();
+const {getOutlineEntries, setBooleanUrlParam, setEmbedCodeUrlParam} = loadTocHelpers();
 
 const makeEntries = (tags) => tags.map((tag, index) => ({
   tag,
@@ -87,4 +100,28 @@ test('keeps numbering stable across many sibling headings', () => {
   assert.deepEqual(summary[0], {depth: 1, numbering: '1'});
   assert.deepEqual(summary[99], {depth: 1, numbering: '100'});
   assert.deepEqual(summary[199], {depth: 1, numbering: '200'});
+});
+
+test('adds the toc state to shared pad links without dropping existing params', () => {
+  assert.equal(
+      setBooleanUrlParam('https://example.test/p/test-pad?showChat=false#section', 'toc', true),
+      'https://example.test/p/test-pad?showChat=false&toc=true#section',
+  );
+  assert.equal(
+      setBooleanUrlParam('https://example.test/p/test-pad?showChat=false#section', 'toc', false),
+      'https://example.test/p/test-pad?showChat=false&toc=false#section',
+  );
+});
+
+test('adds the toc state to embed iframe src urls', () => {
+  const embedCode =
+      '<iframe name="embed_readwrite" src="https://example.test/p/test-pad?showControls=true&showChat=true" width="100%" height="600" frameborder="0"></iframe>';
+  assert.equal(
+      setEmbedCodeUrlParam(embedCode, 'toc', true),
+      '<iframe name="embed_readwrite" src="https://example.test/p/test-pad?showControls=true&showChat=true&toc=true" width="100%" height="600" frameborder="0"></iframe>',
+  );
+  assert.equal(
+      setEmbedCodeUrlParam(embedCode, 'toc', false),
+      '<iframe name="embed_readwrite" src="https://example.test/p/test-pad?showControls=true&showChat=true&toc=false" width="100%" height="600" frameborder="0"></iframe>',
+  );
 });
