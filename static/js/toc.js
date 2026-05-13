@@ -74,22 +74,25 @@ const tableOfContents = globalThis.tableOfContents = {
   isSmallScreen: () => window.matchMedia('(max-width: 768px)').matches,
 
   isHeadingLine: (lineNumber) => {
-    if (lineNumber == null) return false;
-    let delims = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
-    if (clientVars.plugins.plugins.ep_context && clientVars.plugins.plugins.ep_context.styles) {
-      const styles = clientVars.plugins.plugins.ep_context.styles;
-      $.each(styles, (k, style) => {
+    if (lineNumber === null || lineNumber === undefined) return false;
+    const headingSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
+    const context = clientVars.plugins?.plugins?.ep_context;
+    if (context && context.styles) {
+      const styles = context.styles;
+      $.each(styles, (_key, style) => {
         const contextStyle = `context${style.toLowerCase()}`;
-        delims.push(contextStyle);
+        headingSelectors.push(contextStyle);
       });
     }
-    delims = delims.join(',');
+    const headingSelectorList = headingSelectors.join(',');
     const $line = $('iframe[name="ace_outer"]').contents().find('iframe')
         .contents().find('#innerdocbody').children('div').eq(lineNumber);
-    return $line.children(delims).length > 0;
+    return $line.children(headingSelectorList).length > 0;
   },
 
   enable() {
+    // On small screens the TOC behaves like a temporary bottom sheet:
+    // opening is triggered by heading selection instead of staying pinned open.
     if (!this.isSmallScreen()) $('#toc').show();
     this.update();
   },
@@ -220,7 +223,7 @@ const tableOfContents = globalThis.tableOfContents = {
   handleSmallScreenEvent: (args) => {
     if (!tableOfContents.isSmallScreen()) return;
     if (!$('#options-toc').is(':checked')) return;
-    if (!args || !args.rep || !args.rep.selStart) return;
+    if (!args?.rep?.selStart) return;
 
     const lineNumber = args.rep.selStart[0];
     const isHeadingLine = tableOfContents.isHeadingLine(lineNumber);
