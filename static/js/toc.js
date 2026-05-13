@@ -71,9 +71,26 @@ if (typeof $ !== 'undefined') {
 // on pad load. globalThis resolves to `window` in the browser and to
 // `global` in Node.js, so the Node unit tests keep working too.
 const tableOfContents = globalThis.tableOfContents = {
+  isSmallScreen: () => window.matchMedia('(max-width: 768px)').matches,
+
+  isHeadingLine: (lineNumber) => {
+    if (lineNumber == null) return false;
+    let delims = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', '.h1', '.h2', '.h3', '.h4', '.h5', '.h6'];
+    if (clientVars.plugins.plugins.ep_context && clientVars.plugins.plugins.ep_context.styles) {
+      const styles = clientVars.plugins.plugins.ep_context.styles;
+      $.each(styles, (k, style) => {
+        const contextStyle = `context${style.toLowerCase()}`;
+        delims.push(contextStyle);
+      });
+    }
+    delims = delims.join(',');
+    const $line = $('iframe[name="ace_outer"]').contents().find('iframe')
+        .contents().find('#innerdocbody').children('div').eq(lineNumber);
+    return $line.children(delims).length > 0;
+  },
 
   enable() {
-    $('#toc').show();
+    if (!this.isSmallScreen()) $('#toc').show();
     this.update();
   },
 
@@ -130,7 +147,11 @@ const tableOfContents = globalThis.tableOfContents = {
         title: entry.text,
         href: '#',
         class: `tocItem tocDepth${Math.min(entry.displayDepth, 6)}`,
-        click: () => { tableOfContents.scroll(`${entry.y}`); return false; },
+        click: () => {
+          tableOfContents.scroll(`${entry.y}`);
+          if (tableOfContents.isSmallScreen()) $('#toc').hide();
+          return false;
+        },
       });
       $link.attr('data-toc-index', index);
       $link.data('offset', `${entry.y}`);
@@ -194,6 +215,23 @@ const tableOfContents = globalThis.tableOfContents = {
     }
     if (!$('#options-toc').is(':checked')) return;
     tableOfContents.scheduleFindTags(rep);
+  },
+
+  handleSmallScreenEvent: (args) => {
+    if (!tableOfContents.isSmallScreen()) return;
+    if (!$('#options-toc').is(':checked')) return;
+    if (!args || !args.rep || !args.rep.selStart) return;
+
+    const lineNumber = args.rep.selStart[0];
+    const isHeadingLine = tableOfContents.isHeadingLine(lineNumber);
+    if (!isHeadingLine) return;
+
+    const isEdit = args.callstack && args.callstack.docTextChanged === true;
+    if (isEdit) {
+      $('#toc').hide();
+      return;
+    }
+    $('#toc').show();
   },
 
   scroll: (newY) => {
