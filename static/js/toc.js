@@ -57,19 +57,22 @@ const getOutlineEntries = (toc) => {
   });
 };
 
-const setBooleanUrlParam = (rawUrl, name, enabled, baseUrl = window.location.href) => {
+const getBaseUrl = () => (typeof window !== 'undefined' ? window.location.href : undefined);
+
+const setBooleanUrlParam = (rawUrl, name, enabled, baseUrl = getBaseUrl()) => {
   const url = new URL(rawUrl, baseUrl);
   url.searchParams.set(name, String(enabled));
   return url.toString();
 };
 
-const setEmbedCodeUrlParam = (embedCode, name, enabled, baseUrl = window.location.href) => {
-  return embedCode.replace(
-      /\bsrc=(['"])([^'"]+)\1/,
-      (match, quote, rawUrl) =>
-        `src=${quote}${setBooleanUrlParam(rawUrl, name, enabled, baseUrl)}${quote}`,
-  );
-};
+const setEmbedCodeUrlParam = (
+  embedCode, name, enabled, baseUrl = getBaseUrl()
+) => embedCode.replace(
+    /\bsrc=(['"])([^'"]+)\1/,
+    (match, quote, rawUrl) => {
+      const urlWithParam = setBooleanUrlParam(rawUrl, name, enabled, baseUrl);
+      return `src=${quote}${urlWithParam}${quote}`;
+    });
 
 if (typeof $ !== 'undefined') {
   $('#tocButton').click(() => {
@@ -128,6 +131,8 @@ const tableOfContents = globalThis.tableOfContents = {
     });
 
     $(document).on('change.ep_table_of_contents', '#readonlyinput', () => {
+      // Etherpad rewrites the share/embed fields after the readonly checkbox
+      // change handler runs, so wait a tick before patching the generated URLs.
       setTimeout(() => tableOfContents.syncShareUrls($('#options-toc').is(':checked')));
     });
   },
