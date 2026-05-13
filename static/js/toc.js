@@ -57,20 +57,26 @@ const getOutlineEntries = (toc) => {
   });
 };
 
-const getBaseUrl = () => (typeof window !== 'undefined' ? window.location.href : undefined);
+const ETHERPAD_FIELD_REWRITE_DELAY_MS = 0;
+const getWindowHref = () => (typeof window !== 'undefined' ? window.location.href : undefined);
 
-const setBooleanUrlParam = (rawUrl, name, enabled, baseUrl = getBaseUrl()) => {
-  const url = new URL(rawUrl, baseUrl);
+const setBooleanUrlParam = (rawUrl, name, enabled, contextUrl = getWindowHref()) => {
+  let url;
+  try {
+    url = contextUrl == null ? new URL(rawUrl) : new URL(rawUrl, contextUrl);
+  } catch (err) {
+    return rawUrl;
+  }
   url.searchParams.set(name, String(enabled));
   return url.toString();
 };
 
 const setEmbedCodeUrlParam = (
-  embedCode, name, enabled, baseUrl = getBaseUrl()
+  embedCode, name, enabled, contextUrl = getWindowHref()
 ) => embedCode.replace(
-    /\bsrc=(['"])([^'"]+)\1/,
+    /\bsrc=(['"])([^'"]+)\1/g,
     (match, quote, rawUrl) => {
-      const urlWithParam = setBooleanUrlParam(rawUrl, name, enabled, baseUrl);
+      const urlWithParam = setBooleanUrlParam(rawUrl, name, enabled, contextUrl);
       return `src=${quote}${urlWithParam}${quote}`;
     });
 
@@ -110,7 +116,7 @@ const tableOfContents = globalThis.tableOfContents = {
     const $embedInput = $('#embedinput');
     if ($embedInput.length > 0) {
       const embedValue = $embedInput.val();
-      if (typeof embedValue === 'string' && embedValue.includes('src=')) {
+      if (typeof embedValue === 'string' && embedValue.includes('<iframe') && embedValue.includes('src=')) {
         $embedInput.val(setEmbedCodeUrlParam(embedValue, 'toc', enabled));
       }
     }
@@ -133,7 +139,10 @@ const tableOfContents = globalThis.tableOfContents = {
     $(document).on('change.ep_table_of_contents', '#readonlyinput', () => {
       // Etherpad rewrites the share/embed fields after the readonly checkbox
       // change handler runs, so wait a tick before patching the generated URLs.
-      setTimeout(() => tableOfContents.syncShareUrls($('#options-toc').is(':checked')));
+      setTimeout(
+          () => tableOfContents.syncShareUrls($('#options-toc').is(':checked')),
+          ETHERPAD_FIELD_REWRITE_DELAY_MS,
+      );
     });
   },
 
@@ -218,7 +227,7 @@ const tableOfContents = globalThis.tableOfContents = {
     });
 
     $('.tocItem').removeClass('activeTOC');
-    if (activeTocIndex == null) return;
+    if (activeTocIndex === null) return;
     $(`.tocItem[data-toc-index="${activeTocIndex}"]`).addClass('activeTOC');
   },
 
