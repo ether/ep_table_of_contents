@@ -5,6 +5,10 @@
 Enable under settings.
 Create headings, watch the TOC populate in real time.
 
+`ep_table_of_contents` depends on `ep_headings2`, which provides the heading
+attributes the TOC indexes. Install `ep_table_of_contents` normally and
+Etherpad will install `ep_headings2` alongside it.
+
 ## Installation
 
 Install the way Etherpad expects plugins to be installed — via the admin
@@ -42,23 +46,6 @@ If you want to have a button in the toolbar to toggle the TOC, add following sni
 },
 ```
 
-## Installation
-
-Install from the Etherpad admin UI (**Admin → Manage Plugins**,
-search for `ep_table_of_contents` and click *Install*), or from the Etherpad
-root directory:
-
-```sh
-pnpm run plugins install ep_table_of_contents
-```
-
-> ⚠️ Don't run `npm i` / `npm install` yourself from the Etherpad
-> source tree — Etherpad tracks installed plugins through its own
-> plugin-manager, and hand-editing `package.json` can leave the
-> server unable to start.
-
-After installing, restart Etherpad.
-
 ## License
 Copyright 2014, John McLear
 
@@ -73,4 +60,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-

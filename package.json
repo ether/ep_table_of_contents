@@ -26,7 +26,8 @@
     "url": "https://etherpad.org/"
   },
   "dependencies": {
-    "ep_plugin_helpers": "^0.5.2"
+    "ep_plugin_helpers": "^0.5.2",
+    "ep_headings2": ">=0.2.115"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
