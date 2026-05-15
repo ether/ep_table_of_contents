@@ -12,6 +12,16 @@ const enableToc = async (page) => {
   await expect(page.locator('#toc')).toBeVisible();
 };
 
+const enableFullWidthEditor = async (page) => {
+  await page.evaluate(() => {
+    const outer = $('iframe[name="ace_outer"]').contents();
+    const inner = outer.find('iframe[name="ace_inner"]').contents();
+    $('html').addClass('full-width-editor');
+    outer.find('html').addClass('full-width-editor');
+    inner.find('html').addClass('full-width-editor');
+  });
+};
+
 const writeSections = async (page, count, prefix) => {
   for (let i = 0; i < count; i++) {
     await writeToPad(page, `${prefix} ${i + 1}`);
@@ -34,6 +44,20 @@ test.beforeEach(async ({page}) => {
 });
 
 test.describe('table of contents numbering', () => {
+  test('fills the spare gutter without taking quarter-width in full-width-editor mode',
+      async ({page}) => {
+    await page.setViewportSize({width: 1600, height: 900});
+    await enableFullWidthEditor(page);
+
+    const tocWidth = await page.locator('#toc').evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return Math.round(rect.width);
+    });
+
+    expect(tocWidth).toBeGreaterThan(260);
+    expect(tocWidth).toBeLessThan(340);
+  });
+
   test('starts sibling h2 headings at 1 when there is no h1', async ({page}) => {
     await writeToPad(page, 'First section');
     await page.keyboard.press('Enter');

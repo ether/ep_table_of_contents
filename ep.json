@@ -15,6 +15,7 @@
       },
       "client_hooks":{
         "aceEditEvent"                       : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent",
+        "aceSelectionChanged"               : "ep_table_of_contents/static/js/aceEditEvent:aceSelectionChanged",
         "handleClientMessage_ACCEPT_COMMIT"  : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent",
         "handleClientMessage_NEW_CHANGES"    : "ep_table_of_contents/static/js/aceEditEvent:aceEditEvent",
         "handleClientMessage_CLIENT_MESSAGE" : "ep_table_of_contents/static/js/postAceInit:handleClientMessage_CLIENT_MESSAGE",

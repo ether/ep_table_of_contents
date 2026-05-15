@@ -38,7 +38,7 @@ const getOutlineEntries = (toc) => {
   });
 
   const topLevelHeadings = outlineEntries.filter((entry) => entry.numberParts.length === 1);
-  if (topLevelHeadings.length !== 1) return outlineEntries;
+  if (topLevelHeadings.length !== 1 || topLevelHeadings[0].tag !== 'h1') return outlineEntries;
 
   return outlineEntries.map((entry) => {
     if (entry.numberParts.length === 0) return entry;
@@ -51,7 +51,6 @@ const getOutlineEntries = (toc) => {
 
     return {
       ...entry,
-      displayDepth: entry.displayDepth - 1,
       numbering: entry.numberParts.slice(1).join('.'),
     };
   });
@@ -72,13 +71,19 @@ if (typeof $ !== 'undefined') {
 // `global` in Node.js, so the Node unit tests keep working too.
 const tableOfContents = globalThis.tableOfContents = {
 
+  syncLayoutState() {
+    $('#editorcontainerbox').toggleClass('toc-visible', $('#toc').is(':visible'));
+  },
+
   enable() {
     $('#toc').show();
+    this.syncLayoutState();
     this.update();
   },
 
   disable: () => {
     $('#toc').hide();
+    tableOfContents.syncLayoutState();
   },
 
   // Find Tags

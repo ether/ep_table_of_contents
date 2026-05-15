@@ -38,9 +38,9 @@ const summarize = (entries) => getOutlineEntries(makeEntries(entries)).map((entr
 
 test('starts first visible heading at 1 when h1 is missing', () => {
   assert.deepEqual(summarize(['h2', 'h3', 'h3']), [
-    {depth: 1, numbering: ''},
     {depth: 1, numbering: '1'},
-    {depth: 1, numbering: '2'},
+    {depth: 2, numbering: '1.1'},
+    {depth: 2, numbering: '1.2'},
   ]);
 });
 
@@ -55,8 +55,8 @@ test('increments sibling headings instead of repeating 0.1', () => {
 test('keeps a single top-level heading unnumbered and starts children at 1', () => {
   assert.deepEqual(summarize(['h1', 'h2', 'h2']), [
     {depth: 1, numbering: ''},
-    {depth: 1, numbering: '1'},
-    {depth: 1, numbering: '2'},
+    {depth: 2, numbering: '1'},
+    {depth: 2, numbering: '2'},
   ]);
 });
 

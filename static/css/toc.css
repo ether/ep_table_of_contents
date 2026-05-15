@@ -1,10 +1,28 @@
+#editorcontainerbox {
+  --ep-toc-width: clamp(186px, calc((100vw - 980px) / 2), 420px);
+}
+
+#editorcontainerbox.toc-visible::after {
+  content: '';
+  display: block;
+  flex: 0 0 var(--ep-toc-width);
+  width: var(--ep-toc-width);
+  max-width: var(--ep-toc-width);
+}
+
 #toc{
   display: none;
-  width: 200px;
-  padding: 10px;
-  border-left: 1px solid #ccc;
-  background-color: #f7f7f7;
+  position: relative;
+  flex: 0 0 var(--ep-toc-width);
+  width: var(--ep-toc-width) !important;
+  padding: 20px 20px 10px 10px !important;
+  min-width: 186px !important;
+  max-width: 420px !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-sizing: border-box;
   overflow-y: auto;
+  flex-shrink: 0;
 }
 #tocItems{
   line-height:1.4 !important;
@@ -58,9 +76,18 @@ a:hover.tocItem{
   font-weight: 800;
 }
 
-@media (min-width: 1350px) {
-  #toc { width: 25% }
-  body.comments-active #toc { width: 20% } /* a bit smaller when the comment sidebar is visible */
+.plugin-ep_resizable_bars #toc {
+  min-width: 186px !important;
+}
+
+@media (max-width: 1200px) {
+  #editorcontainerbox {
+    --ep-toc-width: 186px;
+  }
+
+  #toc {
+    padding-top: 10px !important;
+  }
 }
 
 #ep_table_of_contents-a button {

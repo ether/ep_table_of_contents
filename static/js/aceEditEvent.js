@@ -8,16 +8,24 @@
 const getToc = () => (typeof globalThis !== 'undefined' && globalThis.tableOfContents) ||
     (window.top && window.top.tableOfContents) || null;
 
+const syncActiveHeading = (rep) => {
+  const toc = getToc();
+  if (!toc || !rep) return;
+  toc.showPosition(rep);
+};
+
+exports.aceSelectionChanged = (hookName, args) => {
+  syncActiveHeading(args && args.rep);
+};
+
 exports.aceEditEvent = (hookName, args) => {
   // dont do anything on idle work timer, wait for changes..
   if (args.callstack && args.callstack.type === 'idleWorkTimer') return false;
   const toc = getToc();
   if (!toc) return;
-  if (args.rep) {
-    toc.showPosition(args.rep);
-  }
+  const hasDocumentChange = !args.callstack || args.callstack.docTextChanged;
 
-  if ($('#toc:visible').length > 0) {
+  if (hasDocumentChange && $('#toc:visible').length > 0) {
     toc.update();
   }
 };
