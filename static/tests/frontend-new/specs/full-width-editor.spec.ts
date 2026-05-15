@@ -17,12 +17,14 @@ const enableFullWidthEditor = async (page) => {
   });
 };
 
-test('TOC does not consume quarter-width in full-width-editor mode', async ({page}) => {
+test('TOC fills the spare gutter without consuming quarter-width in full-width-editor mode',
+    async ({page}) => {
   await page.setViewportSize({width: 1600, height: 900});
   await goToNewPad(page);
   await enableFullWidthEditor(page);
   await enableToc(page);
 
   const tocWidth = await page.locator('#toc').evaluate((el) => Math.round(el.getBoundingClientRect().width));
-  expect(tocWidth).toBeLessThan(260);
+  expect(tocWidth).toBeGreaterThan(260);
+  expect(tocWidth).toBeLessThan(340);
 });

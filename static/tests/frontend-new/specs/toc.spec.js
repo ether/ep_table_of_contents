@@ -44,7 +44,8 @@ test.beforeEach(async ({page}) => {
 });
 
 test.describe('table of contents numbering', () => {
-  test('does not force a quarter-width TOC in full-width-editor mode', async ({page}) => {
+  test('fills the spare gutter without taking quarter-width in full-width-editor mode',
+      async ({page}) => {
     await page.setViewportSize({width: 1600, height: 900});
     await enableFullWidthEditor(page);
 
@@ -53,7 +54,8 @@ test.describe('table of contents numbering', () => {
       return Math.round(rect.width);
     });
 
-    expect(tocWidth).toBeLessThan(260);
+    expect(tocWidth).toBeGreaterThan(260);
+    expect(tocWidth).toBeLessThan(340);
   });
 
   test('starts sibling h2 headings at 1 when there is no h1', async ({page}) => {
