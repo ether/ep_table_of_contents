@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"MagicAho"
+			"MagicAho",
+			"Tensama0415"
 		]
 	},
-	"ep_table_of_contents.toc.title": "目次の表示"
+	"ep_table_of_contents.toc.title": "目次の表示",
+	"ep_table_of_contents.toc": "目次の表示"
 }
