@@ -57,6 +57,29 @@ const getOutlineEntries = (toc) => {
   });
 };
 
+const ETHERPAD_FIELD_REWRITE_DELAY_MS = 0;
+const getWindowHref = () => (typeof window !== 'undefined' ? window.location.href : undefined);
+
+const setBooleanUrlParam = (rawUrl, name, enabled, contextUrl = getWindowHref()) => {
+  let url;
+  try {
+    url = contextUrl == null ? new URL(rawUrl) : new URL(rawUrl, contextUrl);
+  } catch (err) {
+    return rawUrl;
+  }
+  url.searchParams.set(name, String(enabled));
+  return url.toString();
+};
+
+const setEmbedCodeUrlParam = (
+  embedCode, name, enabled, contextUrl = getWindowHref()
+) => embedCode.replace(
+    /\bsrc=(['"])([^'"]+)\1/g,
+    (match, quote, rawUrl) => {
+      const urlWithParam = setBooleanUrlParam(rawUrl, name, enabled, contextUrl);
+      return `src=${quote}${urlWithParam}${quote}`;
+    });
+
 if (typeof $ !== 'undefined') {
   $('#tocButton').click(() => {
     $('#toc').toggle();
@@ -79,6 +102,48 @@ const tableOfContents = globalThis.tableOfContents = {
 
   disable: () => {
     $('#toc').hide();
+  },
+
+  syncShareUrls: (enabled) => {
+    const $linkInput = $('#linkinput');
+    if ($linkInput.length > 0) {
+      const linkValue = $linkInput.val();
+      if (typeof linkValue === 'string' && linkValue !== '') {
+        $linkInput.val(setBooleanUrlParam(linkValue, 'toc', enabled));
+      }
+    }
+
+    const $embedInput = $('#embedinput');
+    if ($embedInput.length > 0) {
+      const embedValue = $embedInput.val();
+      if (typeof embedValue === 'string' && embedValue.includes('<iframe') && embedValue.includes('src=')) {
+        $embedInput.val(setEmbedCodeUrlParam(embedValue, 'toc', enabled));
+      }
+    }
+  },
+
+  syncLocationUrl: (enabled) => {
+    if (!window.history || typeof window.history.replaceState !== 'function') return;
+    const nextUrl = setBooleanUrlParam(window.location.href, 'toc', enabled);
+    window.history.replaceState(window.history.state, document.title, nextUrl);
+  },
+
+  bindShareUrlSync: () => {
+    if (tableOfContents._shareUrlSyncBound) return;
+    tableOfContents._shareUrlSyncBound = true;
+
+    $(document).on('focusin.ep_table_of_contents', '#linkinput, #embedinput', () => {
+      tableOfContents.syncShareUrls($('#options-toc').is(':checked'));
+    });
+
+    $(document).on('change.ep_table_of_contents', '#readonlyinput', () => {
+      // Etherpad rewrites the share/embed fields after the readonly checkbox
+      // change handler runs, so wait a tick before patching the generated URLs.
+      setTimeout(
+          () => tableOfContents.syncShareUrls($('#options-toc').is(':checked')),
+          ETHERPAD_FIELD_REWRITE_DELAY_MS,
+      );
+    });
   },
 
   // Find Tags
@@ -212,5 +277,7 @@ const tableOfContents = globalThis.tableOfContents = {
     if (value === 'false') return false;
     return true;
   },
+
+  _shareUrlSyncBound: false,
 
 };
