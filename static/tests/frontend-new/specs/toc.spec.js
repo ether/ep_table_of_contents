@@ -82,3 +82,36 @@ test.describe('table of contents numbering', () => {
     await expect(tocItems.nth(24)).toHaveText('25. Section 25');
   });
 });
+
+test.describe('table of contents small-screen behavior', () => {
+  test.use({viewport: {width: 480, height: 800}});
+
+  test('opens on heading click and closes after TOC navigation', async ({page}) => {
+    await writeToPad(page, 'First section');
+    await page.keyboard.press('Enter');
+    await writeToPad(page, 'Second section');
+    await applyHeading(page, 0, 2);
+    await applyHeading(page, 1, 2);
+
+    const padBody = await getPadBody(page);
+    await expect(page.locator('#toc')).toBeHidden();
+
+    await padBody.locator('div').nth(0).click();
+    await expect(page.locator('#toc')).toBeVisible();
+
+    await page.locator('#tocItems .tocItem').first().click();
+    await expect(page.locator('#toc')).toBeHidden();
+  });
+
+  test('closes immediately when a heading starts being edited', async ({page}) => {
+    await writeToPad(page, 'Section');
+    await applyHeading(page, 0, 2);
+
+    const padBody = await getPadBody(page);
+    await padBody.locator('div').nth(0).click();
+    await expect(page.locator('#toc')).toBeVisible();
+
+    await page.keyboard.type('!');
+    await expect(page.locator('#toc')).toBeHidden();
+  });
+});

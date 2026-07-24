@@ -63,6 +63,20 @@ a:hover.tocItem{
   body.comments-active #toc { width: 20% } /* a bit smaller when the comment sidebar is visible */
 }
 
+@media (max-width: 768px) {
+  #toc {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    max-height: 40vh;
+    border-top: 1px solid #ccc;
+    border-left: 0;
+    z-index: 10;
+  }
+}
+
 #ep_table_of_contents-a button {
   transform: rotateY(180deg);
 }
