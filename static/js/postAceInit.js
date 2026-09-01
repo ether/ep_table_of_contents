@@ -41,9 +41,14 @@ exports.postAceInit = () => {
   }
   const toc = getToc();
   if (!toc) return;
+  toc.bindShareUrlSync();
 
   const state = tocToggle.init({
-    onChange: (enabled) => { enabled ? toc.enable() : toc.disable(); },
+    onChange: (enabled) => {
+      enabled ? toc.enable() : toc.disable();
+      toc.syncLocationUrl(enabled);
+      toc.syncShareUrls(enabled);
+    },
   });
 
   // ?toc=true / ?toc=false URL parameter still overrides the resolved
@@ -52,6 +57,7 @@ exports.postAceInit = () => {
   if (tocParam === true || tocParam === false) {
     tocParam ? toc.enable() : toc.disable();
     $('#options-toc').prop('checked', tocParam);
+    toc.syncShareUrls(tocParam);
   } else {
     // No URL override — make sure the editor matches the helper's effective
     // value. (init() already fired onChange once, so this is belt-and-braces.)
