@@ -8,9 +8,10 @@ const tocPath = path.resolve(__dirname, '..', '..', '..', '..', 'static', 'js', 
 
 describe(__filename, function () {
   let src;
-  before(function () { src = fs.readFileSync(tocPath, 'utf8'); });
 
-  it('update() debounces findTags() via setTimeout (#51)', function () {
+  before(async function () { src = fs.readFileSync(tocPath, 'utf8'); });
+
+  it('update() debounces findTags() via setTimeout (#51)', async function () {
     // findTags walks every heading and rebuilds the #tocItems list. On pads
     // with hundreds of headings, firing it on every keystroke was the
     // source of the 1-char-per-second typing seen in #51. The update path

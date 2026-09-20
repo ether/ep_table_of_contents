@@ -73,7 +73,8 @@ test.describe('table of contents numbering', () => {
     const tocItems = page.locator('#tocItems .tocItem');
     for (let i = 0; i < headingCount; i++) {
       await applyHeading(page, i, 2);
-      await expect(page.locator(`#tocItems .tocItem[title="Section ${i + 1}"]`)).toBeVisible({timeout: 15_000});
+      await expect(page.locator(`#tocItems .tocItem[title="Section ${i + 1}"]`))
+          .toBeVisible({timeout: 15000});
     }
 
     await expect(tocItems).toHaveCount(headingCount);
