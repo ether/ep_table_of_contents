@@ -162,7 +162,7 @@ const tableOfContents = globalThis.tableOfContents = {
     });
 
     $('.tocItem').removeClass('activeTOC');
-    if (activeTocIndex === null) return;
+    if (activeTocIndex == null) return;
     $(`.tocItem[data-toc-index="${activeTocIndex}"]`).addClass('activeTOC');
   },
 

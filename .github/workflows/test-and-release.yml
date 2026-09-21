@@ -8,6 +8,9 @@ permissions:
   id-token: write
 
 jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
   backend:
     uses: ./.github/workflows/backend-tests.yml
     secrets: inherit
@@ -17,6 +20,7 @@ jobs:
   release:
     if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
     needs:
+      - lint
       - backend
       - frontend
     permissions:

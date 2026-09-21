@@ -14,7 +14,7 @@ const loadTocHelpers = () => {
     URLSearchParams,
     globalThis: {},
     $: () => ({
-      click() {},
+      click: () => {},
     }),
   };
   sandbox.globalThis = sandbox;
