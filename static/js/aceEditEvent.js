@@ -13,6 +13,7 @@ exports.aceEditEvent = (hookName, args) => {
   if (args.callstack && args.callstack.type === 'idleWorkTimer') return false;
   const toc = getToc();
   if (!toc) return;
+  toc.handleSmallScreenEvent(args);
   if (args.rep) {
     toc.showPosition(args.rep);
   }
